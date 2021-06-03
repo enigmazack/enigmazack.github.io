@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;enigmaz.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="VapourSynth是现代的AviSynth。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VapourSynth介绍">
+<meta property="og:url" content="https://enigmaz.gitee.io/2018/10/09/video-encoding-VapourSynth/index.html">
+<meta property="og:site_name" content="EniGmAz">
+<meta property="og:description" content="VapourSynth是现代的AviSynth。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images2.imgbox.com/d7/78/MDAuPXJu_o.png">
+<meta property="article:published_time" content="2018-10-09T11:52:15.000Z">
+<meta property="article:modified_time" content="2021-06-02T15:25:34.450Z">
+<meta property="article:author" content="enigmaz">
+<meta property="article:tag" content="vapoursynth">
+<meta property="article:tag" content="pt">
+<meta property="article:tag" content="video.encode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images2.imgbox.com/d7/78/MDAuPXJu_o.png">
+
+
+<link rel="canonical" href="https://enigmaz.gitee.io/2018/10/09/video-encoding-VapourSynth/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;enigmaz.gitee.io&#x2F;2018&#x2F;10&#x2F;09&#x2F;video-encoding-VapourSynth&#x2F;&quot;,&quot;path&quot;:&quot;2018&#x2F;10&#x2F;09&#x2F;video-encoding-VapourSynth&#x2F;&quot;,&quot;title&quot;:&quot;VapourSynth介绍&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>VapourSynth介绍 | EniGmAz</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">EniGmAz</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#python"><span class="nav-number">1.1.</span> <span class="nav-text">python</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VapourSynth"><span class="nav-number">1.2.</span> <span class="nav-text">VapourSynth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VapourSynth-Editor"><span class="nav-number">1.3.</span> <span class="nav-text">VapourSynth Editor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VapourSynth-%E6%8F%92%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">VapourSynth 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ffms2"><span class="nav-number">1.4.1.</span> <span class="nav-text">ffms2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fillborders"><span class="nav-number">1.4.2.</span> <span class="nav-text">fillborders</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E6%8F%92%E4%BB%B6"><span class="nav-number">1.4.3.</span> <span class="nav-text">更多插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E7%9A%84%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.4.4.</span> <span class="nav-text">插件的加载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ffmsindex"><span class="nav-number">1.5.1.</span> <span class="nav-text">ffmsindex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99vpy"><span class="nav-number">1.5.2.</span> <span class="nav-text">编写vpy</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">enigmaz</p>
+  <div class="site-description" itemprop="description">随便写写</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://enigmaz.gitee.io/2018/10/09/video-encoding-VapourSynth/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="enigmaz">
+      <meta itemprop="description" content="随便写写">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EniGmAz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VapourSynth介绍
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-09 19:52:15" itemprop="dateCreated datePublished" datetime="2018-10-09T19:52:15+08:00">2018-10-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-02 23:25:34" itemprop="dateModified" datetime="2021-06-02T23:25:34+08:00">2021-06-02</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8E%8B%E5%88%B6/" itemprop="url" rel="index"><span itemprop="name">压制</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>VapourSynth是现代的AviSynth。</p>
+<span id="more"></span>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>参考<a target="_blank" rel="noopener" href="http://www.vapoursynth.com/doc/installation.html">官方文档</a></p>
+<h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><p><a target="_blank" rel="noopener" href="https://www.python.org/downloads/release/python-366/">官网</a>下载python36<code>Windows x86-64 executable installer</code>安装，保证python目录添加到环境变量<code>Path</code>中。打开cmd检查安装是否成功</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">Users</span>\<span class="title">Win7</span>&gt;<span class="title">python</span> -<span class="title">V</span></span></span><br><span class="line"><span class="function"><span class="title">Python</span> 3.6.6</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="VapourSynth"><a href="#VapourSynth" class="headerlink" title="VapourSynth"></a>VapourSynth</h3><p>官网<a target="_blank" rel="noopener" href="https://github.com/vapoursynth/vapoursynth/releases">下载地址</a><code>VapourSynth-R44.exe</code>安装，安装程序会自动检查python环境。打开cmd检查安装是否成功</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">Users</span>\<span class="title">Win7</span>&gt;<span class="title">python</span></span></span><br><span class="line"><span class="function"><span class="title">Python</span> 3.6.6 (<span class="title">v3</span>.6.6:4<span class="title">cf1f54eb7</span>, <span class="title">Jun</span> 27 2018, 03:37:03) [<span class="title">MSC</span> <span class="title">v</span>.1900 64 <span class="title">bit</span> (<span class="title">AMD6</span></span></span><br><span class="line"><span class="function">4)] <span class="title">on</span> <span class="title">win32</span></span></span><br><span class="line"><span class="function"><span class="title">Type</span> &quot;<span class="title">help</span>&quot;, &quot;<span class="title">copyright</span>&quot;, &quot;<span class="title">credits</span>&quot; <span class="title">or</span> &quot;<span class="title">license</span>&quot; <span class="title">for</span> <span class="title">more</span> <span class="title">information</span>.</span></span><br><span class="line"><span class="function">&gt;&gt;&gt; <span class="title">from</span> <span class="title">vapoursynth</span> <span class="title">import</span> <span class="title">core</span></span></span><br><span class="line"><span class="function">&gt;&gt;&gt; <span class="title">print</span>(<span class="title">core.version</span>())</span></span><br><span class="line"><span class="function"><span class="title">VapourSynth</span> <span class="title">Video</span> <span class="title">Processing</span> <span class="title">Library</span></span></span><br><span class="line"><span class="function"><span class="title">Copyright</span> (<span class="title">c</span>) 2012-2017 <span class="title">Fredrik</span> <span class="title">Mellbin</span></span></span><br><span class="line"><span class="function"><span class="title">Core</span> <span class="title">R38</span></span></span><br><span class="line"><span class="function"><span class="title">API</span> <span class="title">R3</span>.5</span></span><br><span class="line"><span class="function"><span class="title">Options</span>: -</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="VapourSynth-Editor"><a href="#VapourSynth-Editor" class="headerlink" title="VapourSynth Editor"></a>VapourSynth Editor</h3><p>官方<a target="_blank" rel="noopener" href="https://bitbucket.org/mystery_keeper/vapoursynth-editor/downloads/">下载地址</a><code>VapourSynthEditor-r18-64bit.7z</code>,解压即可使用。如果遇到缺少vc++运行时的错误提示，到<a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">网页</a>查找安装。</p>
+<h3 id="VapourSynth-插件"><a href="#VapourSynth-插件" class="headerlink" title="VapourSynth 插件"></a>VapourSynth 插件</h3><h4 id="ffms2"><a href="#ffms2" class="headerlink" title="ffms2"></a>ffms2</h4><p><a target="_blank" rel="noopener" href="https://github.com/FFMS/ffms2/releases">地址</a></p>
+<h4 id="fillborders"><a href="#fillborders" class="headerlink" title="fillborders"></a>fillborders</h4><p><a target="_blank" rel="noopener" href="https://github.com/dubhater/vapoursynth-fillborders/releases">地址</a></p>
+<h4 id="更多插件"><a href="#更多插件" class="headerlink" title="更多插件"></a>更多插件</h4><p><a target="_blank" rel="noopener" href="https://github.com/search?q=vapoursynth">https://github.com/search?q=vapoursynth</a></p>
+<h4 id="插件的加载"><a href="#插件的加载" class="headerlink" title="插件的加载"></a>插件的加载</h4><p>两种方式，一种是自动加载，加载路径参考<a target="_blank" rel="noopener" href="http://www.vapoursynth.com/doc/autoloading.html">官方文档</a>。另一种就是在脚本中加载，具体参考下面的例子</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="ffmsindex"><a href="#ffmsindex" class="headerlink" title="ffmsindex"></a>ffmsindex</h4><p>用ffms2处理mkv视频时，我们先用ffmsindex为视频文件做index，ffmsindex在ffms2解压文件价中。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">Users</span>\<span class="title">Win7</span>\<span class="title">Desktop</span>\<span class="title">workshop</span>&gt;<span class="title">C</span>:\<span class="title">Users</span>\<span class="title">Win7</span>\<span class="title">Desktop</span>\<span class="title">StaxRip</span>-<span class="title">x64</span>-1.7.0.0-<span class="title">stable</span>\</span></span><br><span class="line"><span class="function"><span class="title">Apps</span>\<span class="title">Plugins</span>\<span class="title">both</span>\<span class="title">ffms2</span>\<span class="title">ffmsindex.exe</span> 01002.<span class="title">mkv</span></span></span><br><span class="line"><span class="function"><span class="title">Indexing</span>, <span class="title">please</span> <span class="title">wait</span>... 7%</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="编写vpy"><a href="#编写vpy" class="headerlink" title="编写vpy"></a>编写vpy</h4><p><code>.vpy</code>是VapourSynth用来处理视频的脚本文件，其实就是python代码。我们可以用VapourSynth Editor写这些脚本，按<code>F5</code>可以预览效果。</p>
+<p>下面的两段代码分别是做测试视频时和做比较视频时用的两段代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> vapoursynth <span class="keyword">as</span> vs</span><br><span class="line">core = vs.get_core()</span><br><span class="line"><span class="comment"># 加载非标准位置的插件</span></span><br><span class="line">core.std.LoadPlugin(<span class="string">r&quot;C:\Users\Win7\Desktop\StaxRip-x64-1.7.0.0-stable\Apps\Plugins\both\ffms2\ffms2.dll&quot;</span>)</span><br><span class="line">clip = core.ffms2.Source(<span class="string">r&quot;C:\Users\Win7\Desktop\workshop\01002.mkv&quot;</span>)</span><br><span class="line"><span class="comment"># 切黑边</span></span><br><span class="line">clip = core.std.CropRel(clip, <span class="number">0</span>, <span class="number">0</span>, <span class="number">22</span>, <span class="number">20</span>)</span><br><span class="line"><span class="comment"># 处理dirty line</span></span><br><span class="line">clip = core.fb.FillBorders(clip, left=<span class="number">1</span>, top=<span class="number">1</span>, right=<span class="number">1</span>, bottom=<span class="number">0</span>, mode=<span class="string">&quot;fillmargins&quot;</span>)</span><br><span class="line"><span class="comment"># 测试视频时，每个10000帧取1000，跳过前2000帧的办法</span></span><br><span class="line">clip = core.std.SelectEvery(clip[<span class="number">2000</span>::], cycle=<span class="number">10000</span>, offsets=<span class="built_in">range</span>(<span class="number">1000</span>))</span><br><span class="line">clip.set_output()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> vapoursynth <span class="keyword">as</span> vs</span><br><span class="line">core = vs.get_core()</span><br><span class="line">core.std.LoadPlugin(<span class="string">r&quot;C:\Users\Win7\Desktop\StaxRip-x64-1.7.0.0-stable\Apps\Plugins\both\ffms2\ffms2.dll&quot;</span>)</span><br><span class="line">clip = core.ffms2.Source(<span class="string">r&quot;C:\Users\Win7\Desktop\workshop\01002.mkv&quot;</span>)</span><br><span class="line">clip = core.std.CropRel(clip, <span class="number">0</span>, <span class="number">0</span>, <span class="number">22</span>, <span class="number">20</span>)</span><br><span class="line">clip = core.fb.FillBorders(clip, left=<span class="number">1</span>, top=<span class="number">1</span>, right=<span class="number">1</span>, bottom=<span class="number">0</span>, mode=<span class="string">&quot;fillmargins&quot;</span>)</span><br><span class="line">clip = core.std.SelectEvery(clip[<span class="number">5000</span>:], cycle=<span class="number">20000</span>, offsets=<span class="built_in">range</span>(<span class="number">1000</span>))</span><br><span class="line"><span class="comment"># text显示帧信息和自定义标签</span></span><br><span class="line">clip = clip.text.FrameProps(props=[<span class="string">&quot;_PictType&quot;</span>]).text.Text(text=<span class="string">&quot;SOURCE&quot;</span>)</span><br><span class="line">clip2 = core.ffms2.Source(<span class="string">r&quot;C:\Users\Win7\Desktop\workshop\01002_new.mkv&quot;</span>)</span><br><span class="line">clip2 = clip2.text.FrameProps(props=[<span class="string">&quot;_PictType&quot;</span>]).text.Text(text=<span class="string">&quot;CRF16&quot;</span>)</span><br><span class="line"><span class="comment"># 将两个视频交替显示</span></span><br><span class="line">clip = core.std.Interleave(clips=[clip, clip2], mismatch=<span class="number">1</span>)</span><br><span class="line">clip.set_output()</span><br></pre></td></tr></table></figure>
+
+<p>效果</p>
+<p><img src="https://images2.imgbox.com/d7/78/MDAuPXJu_o.png" alt="pic1"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vapoursynth/" rel="tag"># vapoursynth</a>
+              <a href="/tags/pt/" rel="tag"># pt</a>
+              <a href="/tags/video-encode/" rel="tag"># video.encode</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/10/09/video-encoding-StaxRip/" rel="prev" title="StaxRip介绍">
+                  <i class="fa fa-chevron-left"></i> StaxRip介绍
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/10/09/video-encoding-workflow/" rel="next" title="蓝光视频压制的一般流程">
+                  蓝光视频压制的一般流程 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">enigmaz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

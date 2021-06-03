@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;enigmaz.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="蓝光视频压制的一般流程…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓝光视频压制的一般流程">
+<meta property="og:url" content="https://enigmaz.gitee.io/2018/10/09/video-encoding-workflow/index.html">
+<meta property="og:site_name" content="EniGmAz">
+<meta property="og:description" content="蓝光视频压制的一般流程…">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-09T11:52:29.000Z">
+<meta property="article:modified_time" content="2021-06-02T15:25:34.450Z">
+<meta property="article:author" content="enigmaz">
+<meta property="article:tag" content="pt">
+<meta property="article:tag" content="video.encode">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://enigmaz.gitee.io/2018/10/09/video-encoding-workflow/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;enigmaz.gitee.io&#x2F;2018&#x2F;10&#x2F;09&#x2F;video-encoding-workflow&#x2F;&quot;,&quot;path&quot;:&quot;2018&#x2F;10&#x2F;09&#x2F;video-encoding-workflow&#x2F;&quot;,&quot;title&quot;:&quot;蓝光视频压制的一般流程&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>蓝光视频压制的一般流程 | EniGmAz</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">EniGmAz</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E8%A7%86%E9%A2%91%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">准备视频源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E7%94%B5%E5%BD%B1"><span class="nav-number">2.</span> <span class="nav-text">浏览电影</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%BB%A4%E9%95%9C"><span class="nav-number">3.</span> <span class="nav-text">设置滤镜</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E9%BB%91%E8%BE%B9"><span class="nav-number">3.1.</span> <span class="nav-text">切黑边</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FillBorders"><span class="nav-number">3.2.</span> <span class="nav-text">FillBorders</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Resize"><span class="nav-number">3.3.</span> <span class="nav-text">Resize</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">3.4.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%8F%82%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">测试参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">音频的处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E6%B5%81"><span class="nav-number">6.</span> <span class="nav-text">混流</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">enigmaz</p>
+  <div class="site-description" itemprop="description">随便写写</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://enigmaz.gitee.io/2018/10/09/video-encoding-workflow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="enigmaz">
+      <meta itemprop="description" content="随便写写">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EniGmAz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          蓝光视频压制的一般流程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-09 19:52:29" itemprop="dateCreated datePublished" datetime="2018-10-09T19:52:29+08:00">2018-10-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-02 23:25:34" itemprop="dateModified" datetime="2021-06-02T23:25:34+08:00">2021-06-02</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8E%8B%E5%88%B6/" itemprop="url" rel="index"><span itemprop="name">压制</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>蓝光视频压制的一般流程…</p>
+<span id="more"></span>
+
+<h2 id="准备视频源"><a href="#准备视频源" class="headerlink" title="准备视频源"></a>准备视频源</h2><p>从蓝光原盘目录里获取完整的电影视频应该从<code>BDMV/PLAYLIST</code>的<code>.mpls</code>文件入手而不是直接找<code>BDMV/STREAM</code>中的<code>.m2ts</code>文件。下面两张图摘自BD-ROM白皮书,可大致理解下蓝光目录中<code>.mpls .clip .m2ts</code>几个文件之间的关系。</p>
+<p><img src="" alt="pic1"></p>
+<p>能分析蓝光中<code>.mpls</code>文件的软件有很多，我推荐<a href="forums/5b45ee6a073d401fcfdbe791/5b58b2a3295fb1570e8b9d9d">使用MKVToolNix混流</a>中的方法。需要确定的是完整的一部电影到底是<code>BDMV/STREAM</code>文件夹中的那（几）个<code>.m2ts</code>以及它们之间的播放顺序。你可以选择像我上一篇教程中的推荐的先REMUX出一个mkv文件来处理，也可以选择直接处理<code>.m2ts</code>文件。在我的教程中我不会详细讨论直接处理<code>.m2ts</code>方法，只会给一些提示。另外在我的教程中会摒弃AviSynth，以VapourSynth的使用为主。</p>
+<h2 id="浏览电影"><a href="#浏览电影" class="headerlink" title="浏览电影"></a>浏览电影</h2><p>借助VapourSynth快速浏览电影画面，帮助我们获得对电影画面整体的感受。参考<a href="forums/5b45ee6a073d401fcfdbe791/5b59cc54d90146085946f957">VapourSynth使用教程</a>,假设你已经把需要用到的插件放在了自动加载路径，且做好了ffmsindex。我们主要使用VapourSynth Editor辅助我们处理影片。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> vapoursynth <span class="keyword">as</span> vs</span><br><span class="line">core = vs.get_core()</span><br><span class="line">clip = core.ffms2.Source(<span class="string">r&quot;C:\Users\Win7\Desktop\workshop\00800.mkv&quot;</span>)</span><br><span class="line"><span class="comment">#clip = core.std.SelectEvery(clip, cycle=100, offsets=0)</span></span><br><span class="line">clip = clip[::<span class="number">100</span>]</span><br><span class="line">clip.set_output()</span><br></pre></td></tr></table></figure>
+
+<p>这两种表达方式效果一样，表示每100帧取一帧。浏览影片的时候可以适当调整这个值，然后在VapourSynth Editor的调试窗口（F5）观看影片画面。</p>
+<p>如果是选择直接处理<code>.m2ts</code>文件不建议直接使用<code>ffms2.Source</code>，而应该考虑<a target="_blank" rel="noopener" href="https://github.com/dwbuiten/d2vsource">d2vsource</a>这个插件。其中涉及到一个<code>frame accurate</code>的问题。如果是多段<code>.m2ts</code>拼接，建议还是按先REMUX的办法处理。</p>
+<h2 id="设置滤镜"><a href="#设置滤镜" class="headerlink" title="设置滤镜"></a>设置滤镜</h2><p>在蓝光电影的压制过程中，我们一般不需要用太多的滤镜。一般只需要裁黑边、修复画面边缘的小问题。如果是压制720p还需要resize。另外不常用的有debanding等。注意处理真人电影的时候一般不做降噪处理，反到是为了保持噪点和细节而想尽一切办法。</p>
+<h3 id="切黑边"><a href="#切黑边" class="headerlink" title="切黑边"></a>切黑边</h3><p>切黑边的要求的是像素点得是偶数。VapourSynth Editor调试窗口提供了一个简单的切边功能，虽然没有staxrip的方便，但也勉强能用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clip = core.std.CropRel(clip, left=<span class="number">0</span>, top=<span class="number">138</span>, right=<span class="number">0</span>, bottom=<span class="number">138</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="FillBorders"><a href="#FillBorders" class="headerlink" title="FillBorders"></a>FillBorders</h3><p>有很多电影在最边缘的一个像素点的一条线上会出现亮度偏高或者完全黑边的情况，这个时候就用FillBorders滤镜处理。注意只有一个像素的坏点才用这种办法处理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clip = core.fb.FillBorders(clip, left=<span class="number">0</span>, top=<span class="number">0</span>, right=<span class="number">0</span>, bottom=<span class="number">0</span>, mode=<span class="string">&quot;fillmargins&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Resize"><a href="#Resize" class="headerlink" title="Resize"></a>Resize</h3><p>做720p才用到，算法采用<code>Spline36</code>。高度按比例计算，具体办法和要注意点待补充，可以用staxrip提供的解决方案。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clip = core.resize.Spline36(clip, width=<span class="number">1280</span>, height=xxx)</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>以上只列举了基本的几个滤镜，虽然在真人电影的压制中用的滤镜不多，但也还是有一些复杂用法的。例如debanding，一般用<a target="_blank" rel="noopener" href="https://github.com/SAPikachu/flash3kyuu_deband">f3kdb</a>这个插件。debanding也不是套用在整个视频当中，只有需要debanding的画面才做debanding。这样我们还需要将视频分段处理。需要分段处理视频的我准备以后另外再写一个补充教程。</p>
+<h2 id="测试参数"><a href="#测试参数" class="headerlink" title="测试参数"></a>测试参数</h2><p>x264编码时需要设置很多参数，其中有一些是设置视频规格的考虑播放设备兼容性的设置，这些设置基本都是固定的，例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--level 4.1 --vbv-bufsize 78125 --vbv-maxrate 62500</span><br></pre></td></tr></table></figure>
+
+<p>还有一些是设置编码采用算法复杂程度的，一般越复杂的算法能得到越高质量体积比的视频，每个小组或者网站都会有一个自己最低的要求，例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--preset veryslow --merange 32</span><br></pre></td></tr></table></figure>
+
+<p>还有一些常规性的设置，针对一类视频要求不变的设置，例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--deblock -3:-3</span><br></pre></td></tr></table></figure>
+
+<p>以上这几类参数一旦被采用一般是不会再变的。但是还有一类参数，是用来控制码率的，这些参数需要在针对具体视频时需要调整的，例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--crf ? --aq-mode ? --aq-strength ? --qcomp ? --ipratio ? --pbratio ? --psy-rd ?:?<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>在正式开始编码视频前我们需要抽取一些视频样本来进行参数测试，抽取样本的<code>.vpy</code>脚本例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> vapoursynth <span class="keyword">as</span> vs</span><br><span class="line">core = vs.get_core()</span><br><span class="line">clip = core.ffms2.Source(<span class="string">r&quot;C:\Users\Win7\Desktop\workshop\00800.mkv&quot;</span>)</span><br><span class="line">clip = core.std.CropRel(clip, left=<span class="number">0</span>, top=<span class="number">138</span>, right=<span class="number">0</span>, bottom=<span class="number">138</span>)</span><br><span class="line"><span class="comment">#clip = core.fb.FillBorders(clip, left=0, top=0, right=0, bottom=0, mode=&quot;fillmargins&quot;)</span></span><br><span class="line"><span class="comment">#clip = core.resize.Spline36(clip, width=1280, height=?)</span></span><br><span class="line"><span class="comment"># 从2001帧开始，每隔20000帧，抽取1000帧作为测试片段</span></span><br><span class="line">clip = core.std.SelectEvery(clip[<span class="number">2000</span>::], cycle=<span class="number">20000</span>, offsets=<span class="built_in">range</span>(<span class="number">1000</span>))</span><br><span class="line">clip.set_output()</span><br></pre></td></tr></table></figure>
+
+<p>第一遍我们测试<code>bframes</code>这个参数，我们先给它一个较大的值，一般是16，其他参数固定的参数就按固定的参数值来，控制码率的参数按默认值或者你个人觉得合理的值来</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--level 4.1 --vbv-bufsize 78125 --vbv-maxrate 62500 --crf 18 --preset veryslow --merange 32 --bframes 16 ...</span><br></pre></td></tr></table></figure>
+
+<p>跑一遍样本视频。用vspip给x264提供输入，命令行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vspipe --y4m &lt;test.vpy&gt; - | x264 --demuxer y4m &lt;x264 options&gt; - -o test.mkv</span><br></pre></td></tr></table></figure>
+
+<p>跑完后，看输出信息有一段</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x264 [info]: consecutive B-frames: 7.3% 6.3% 6.7% 15.3% 6.9% 42.2% 3.0% 4.3% 8.0% 1.1% 0.1% ...</span><br></pre></td></tr></table></figure>
+
+<p>一共应该有17个百分数，找到最后一个大于x%（x取1或者5，看你自己的标准）的数，从0开始数它是第几个百分数，以后针对这部视频的处理都以这个位数为<code>bframes</code>值。</p>
+<p>然后就是测试<code>--crf ? --aq-mode ? --aq-strength ? --qcomp ? --ipratio ? --pbratio ? --psy-rd ?:?</code>这一串值了。每次测试测一个，先测试crf。</p>
+<p><code>crf</code>是最关键的，先从16到19（这个数值是我的举例）每隔1取一个值，做一遍测试。做这种测试的时候最好写一个脚本来控制。都跑完了之后我们就要写一个对比视频效果的<code>.vpy</code>脚本来确定<code>crf</code>的合适值了，样板如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> vapoursynth <span class="keyword">as</span> vs</span><br><span class="line">core = vs.get_core()</span><br><span class="line">clip = core.ffms2.Source(<span class="string">r&quot;C:\Users\Win7\Desktop\workshop\00800.mkv&quot;</span>)</span><br><span class="line">clip = core.std.CropRel(clip, left=<span class="number">0</span>, top=<span class="number">138</span>, right=<span class="number">0</span>, bottom=<span class="number">138</span>)</span><br><span class="line">clip = core.std.SelectEvery(clip[<span class="number">5000</span>:], cycle=<span class="number">20000</span>, offsets=<span class="built_in">range</span>(<span class="number">1000</span>))</span><br><span class="line"><span class="comment"># text显示帧信息和自定义标签</span></span><br><span class="line">clip = clip.text.FrameProps(props=[<span class="string">&quot;_PictType&quot;</span>]).text.Text(text=<span class="string">&quot;SOURCE&quot;</span>)</span><br><span class="line">clip2 = core.ffms2.Source(<span class="string">r&quot;C:\Users\Win7\Desktop\workshop\00800_crf16.mkv&quot;</span>)</span><br><span class="line">clip2 = clip2.text.FrameProps(props=[<span class="string">&quot;_PictType&quot;</span>]).text.Text(text=<span class="string">&quot;CRF16&quot;</span>)</span><br><span class="line">clip3 = core.ffms2.Source(<span class="string">r&quot;C:\Users\Win7\Desktop\workshop\00800_crf17.mkv&quot;</span>)</span><br><span class="line">clip3 = clip2.text.FrameProps(props=[<span class="string">&quot;_PictType&quot;</span>]).text.Text(text=<span class="string">&quot;CRF17&quot;</span>)</span><br><span class="line">clip4 = core.ffms2.Source(<span class="string">r&quot;C:\Users\Win7\Desktop\workshop\00800_crf18.mkv&quot;</span>)</span><br><span class="line">clip4 = clip2.text.FrameProps(props=[<span class="string">&quot;_PictType&quot;</span>]).text.Text(text=<span class="string">&quot;CRF18&quot;</span>)</span><br><span class="line"><span class="comment"># 将视频交替显示</span></span><br><span class="line">clip = core.std.Interleave(clips=[clip, clip2，clip3, clip4], mismatch=<span class="number">1</span>)</span><br><span class="line">clip.set_output()</span><br></pre></td></tr></table></figure>
+
+<p>我们在VapourSynth Editor你挑去一些帧来观察，确定合适的<code>crf</code>范围，再在这个范围里面设置更小的间隔来确定<code>crf</code>的具体值。</p>
+<p>只有<code>crf</code>这个关键性的参数才有这样两级测试的待遇，其他参数一般只需要一级测试即可。甚至在你经验丰富之后直接给的一些参数的值，已简化参数测试的过程。</p>
+<p>一旦所有的参数确定了之后我们就可以用这些参数完整的跑一边整部视频了。</p>
+<h2 id="音频的处理"><a href="#音频的处理" class="headerlink" title="音频的处理"></a>音频的处理</h2><p>音频处理最直接的方式就是直接拷贝。不过有的时候蓝光原盘的音轨实在太大，可以选择从中提取core作为重编码作品的音轨。</p>
+<p>eac3to是用来处理音频的最常用工具。具体的用法以后另开教程补充。</p>
+<h2 id="混流"><a href="#混流" class="headerlink" title="混流"></a>混流</h2><p>混流的过程简单，还是使用MKVToolNix这个工具，记得把字幕和章节信息原封不动的混进来。</p>
+<p>至此，蓝光压制的过程算是完成了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/pt/" rel="tag"># pt</a>
+              <a href="/tags/video-encode/" rel="tag"># video.encode</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/10/09/video-encoding-VapourSynth/" rel="prev" title="VapourSynth介绍">
+                  <i class="fa fa-chevron-left"></i> VapourSynth介绍
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/10/09/video-encoding-x264-settings/" rel="next" title="x264参数选择">
+                  x264参数选择 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">enigmaz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

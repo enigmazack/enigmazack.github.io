@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;enigmaz.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="x264参数选择…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="x264参数选择">
+<meta property="og:url" content="https://enigmaz.gitee.io/2018/10/09/video-encoding-x264-settings/index.html">
+<meta property="og:site_name" content="EniGmAz">
+<meta property="og:description" content="x264参数选择…">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-09T11:53:19.000Z">
+<meta property="article:modified_time" content="2021-06-02T15:25:34.450Z">
+<meta property="article:author" content="enigmaz">
+<meta property="article:tag" content="pt">
+<meta property="article:tag" content="video.encode">
+<meta property="article:tag" content="x264">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://enigmaz.gitee.io/2018/10/09/video-encoding-x264-settings/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;enigmaz.gitee.io&#x2F;2018&#x2F;10&#x2F;09&#x2F;video-encoding-x264-settings&#x2F;&quot;,&quot;path&quot;:&quot;2018&#x2F;10&#x2F;09&#x2F;video-encoding-x264-settings&#x2F;&quot;,&quot;title&quot;:&quot;x264参数选择&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>x264参数选择 | EniGmAz</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">EniGmAz</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#samples"><span class="nav-number">1.</span> <span class="nav-text">samples</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E9%80%89%E6%8B%A9"><span class="nav-number">2.</span> <span class="nav-text">参数选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E5%8F%82%E6%95%B0-Part-1"><span class="nav-number">2.1.</span> <span class="nav-text">固定参数 Part 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E5%8F%82%E6%95%B0-Part-2"><span class="nav-number">2.2.</span> <span class="nav-text">固定参数 Part 2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#preset"><span class="nav-number">2.2.1.</span> <span class="nav-text">preset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93me"><span class="nav-number">2.2.2.</span> <span class="nav-text">–me</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93merange"><span class="nav-number">2.2.3.</span> <span class="nav-text">–merange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93subme"><span class="nav-number">2.2.4.</span> <span class="nav-text">–subme</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93no-mbtree"><span class="nav-number">2.2.5.</span> <span class="nav-text">–no-mbtree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93no-fast-pskip"><span class="nav-number">2.2.6.</span> <span class="nav-text">–no-fast-pskip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93no-dct-decimate"><span class="nav-number">2.2.7.</span> <span class="nav-text">–no-dct-decimate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93deblock"><span class="nav-number">2.2.8.</span> <span class="nav-text">–deblock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93ref"><span class="nav-number">2.2.9.</span> <span class="nav-text">–ref</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93bframes"><span class="nav-number">2.2.10.</span> <span class="nav-text">–bframes</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0"><span class="nav-number">2.3.</span> <span class="nav-text">可变参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93crf"><span class="nav-number">2.3.1.</span> <span class="nav-text">–crf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93qcomp"><span class="nav-number">2.3.2.</span> <span class="nav-text">–qcomp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93aq-mode-%E2%80%93aq-strength"><span class="nav-number">2.3.3.</span> <span class="nav-text">–aq-mode –aq-strength</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93ipratio-%E2%80%93pbratio"><span class="nav-number">2.3.4.</span> <span class="nav-text">–ipratio –pbratio</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93psy-rd"><span class="nav-number">2.3.5.</span> <span class="nav-text">–psy-rd</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E5%8F%82%E6%95%B0"><span class="nav-number">2.4.</span> <span class="nav-text">最终参数</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">enigmaz</p>
+  <div class="site-description" itemprop="description">随便写写</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://enigmaz.gitee.io/2018/10/09/video-encoding-x264-settings/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="enigmaz">
+      <meta itemprop="description" content="随便写写">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EniGmAz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          x264参数选择
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-09 19:53:19" itemprop="dateCreated datePublished" datetime="2018-10-09T19:53:19+08:00">2018-10-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-02 23:25:34" itemprop="dateModified" datetime="2021-06-02T23:25:34+08:00">2021-06-02</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%8E%8B%E5%88%B6/" itemprop="url" rel="index"><span itemprop="name">压制</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>x264参数选择…</p>
+<span id="more"></span>
+
+<h2 id="samples"><a href="#samples" class="headerlink" title="samples"></a>samples</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Wind River 2017 1080p BluRay DTS x264-DON</span><br><span class="line"></span><br><span class="line">Technical Information:</span><br><span class="line">RELEASE SiZE...: 12.3 GiB</span><br><span class="line">RUNTiME........: 1h 46mn</span><br><span class="line">ViDEO CODEC....: x264 High@L4.1</span><br><span class="line">FRAMERATE......: 23.976 fps</span><br><span class="line">BiTRATE........: Variable ~ 14.6 Mbps</span><br><span class="line">ASPECT RATiO...: 2.40:1</span><br><span class="line">RESOLUTiON.....: 1920x804</span><br><span class="line">AUDiO..........: English DTS 6ch @ 1509 Kbps</span><br><span class="line">CHAPTERS.......: Yes</span><br><span class="line">SOURCE.........: 1080p Blu-ray AVC DTS-HD MA 5.1-MTeam ~ Thanks !</span><br><span class="line">SUBTiTLES......: English,English-SDH,English-SDH-Colored,Spanish,Vietnamese-PDV.</span><br><span class="line"></span><br><span class="line">ENCODER........: hungdaita @ DON</span><br><span class="line">RELEASE.DATE...: 08/11/2017</span><br><span class="line"></span><br><span class="line">.x264 iNFO:</span><br><span class="line">--crf 17.4 --preset placebo --me umh --subme 11 --bframes 9 --deblock -3:-3 --ipratio 1.30 --pbratio 1.20</span><br><span class="line">--psy-rd 1.0 --qcomp 0.65 --aq-strength 0.80 --merange 32 --no-fast-pskip --no-mbtree --no-dct-decimate</span><br><span class="line"></span><br><span class="line">.x264 LOG:</span><br><span class="line">x264 [info]: frame I:1022  Avg QP:14.83  size:183438</span><br><span class="line">x264 [info]: frame P:29306 Avg QP:15.82  size:104870</span><br><span class="line">x264 [info]: frame B:123289 Avg QP:17.13  size: 70814</span><br><span class="line">x264 [info]: consecutive B-frames:  1.2%  1.6%  6.8%  9.1%  8.4% 59.4%  4.9%  1.3%  5.3%  2.1%</span><br><span class="line"></span><br><span class="line">encoded 153617 frames, 5.368 fps, 14972.63 kb/s, 11436 MB ~ encoding duration 7:56:57</span><br><span class="line"></span><br><span class="line">.NOTES:</span><br><span class="line">* Special thanks to Elheym for the subs.</span><br><span class="line">* Semi-dark, dark scenes background blocking, so they needed mild filter</span><br><span class="line">* and the lower CRF to be kept looking good. Debanded, deblocked with 4 types of f3kdb.</span><br><span class="line">* Greetings: TayTO, DON, Nick007, rose, v0danh, BodoiCuHo, riverstore, wolgone, superstar, AraGorN, NOiZE and my friends !</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Writing library                          : x264 core 152 r2851+58 429492e t_mod_Custom [8-bit@all X86_64]</span><br><span class="line">Encoding settings                        : cabac=1 / ref=5 / deblock=1:-3:-3 / analyse=0x3:0x133 / me=umh / subme=11 / psy=1 / fade_compensate=0.00 / psy_rd=1.00:0.00 / mixed_ref=1 / me_range=32 / chroma_me=1 / trellis=2 / 8x8dct=1 / cqm=0 / deadzone=21,11 / fast_pskip=0 / chroma_qp_offset=-2 / threads=12 / lookahead_threads=2 / sliced_threads=0 / nr=0 / decimate=0 / interlaced=0 / bluray_compat=0 / constrained_intra=0 / fgo=0 / bframes=9 / b_pyramid=2 / b_adapt=2 / b_bias=0 / direct=3 / weightb=1 / open_gop=0 / weightp=2 / keyint=250 / keyint_min=23 / scenecut=40 / intra_refresh=0 / rc_lookahead=60 / rc=crf / mbtree=0 / crf=17.4000 / qcomp=0.65 / qpmin=0:0:0 / qpmax=69:69:69 / qpstep=4 / vbv_maxrate=62500 / vbv_bufsize=78125 / crf_max=0.0 / nal_hrd=none / filler=0 / ip_ratio=1.30 / pb_ratio=1.20 / aq=3:0.80 / aq-sensitivity=10.00 / aq-factor=1.00:1.00:1.00 / aq2=0 / aq3=0 / zones=85,321,crf=14/900,2062,crf=16.4/2807,2856,crf=14.4/4500,4804,crf=15.4/6490,6510,crf=14.4/7414,7460,crf=15.4/12051,12120,crf=15.4/23430,23472,crf=16.4/23636,23667,crf=14.4/23706,23770,crf=14.4/23806,23875,crf=14.4/23936,23996,crf=15.4/24363,24482,crf=15.4/24524,24621,crf=15.4/24985,25177,crf=15.4/26912,26940,crf=14/27218,27515,crf=15.4/35041,35743,crf=16.4/43222,43313,crf=16.4/44949,45044,crf=14.4/55268,55311,crf=15.4/55504,55667,crf=15.4/57566,58213,crf=15.4/58269,58950,crf=14.4/59075,60253,crf=14.4/63825,63869,crf=14.4/67910,68401,crf=16.8/68782,75218,crf=16.4/83740,84064,crf=14.4/86448,86694,crf=15.4/103154,103582,crf=14.4/116029,116056,crf=14.4/121120,121205,crf=14.4</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">Wind River 2017 1080p BluRay DTS x264-TayTO</span><br><span class="line"></span><br><span class="line">CONTAINER FORMAT..: Matroska</span><br><span class="line">SIZE..............: 15.1 GiB</span><br><span class="line">RUNTIME...........: 1:50:27</span><br><span class="line">FRAMERATE.........: 23.976 fps</span><br><span class="line">RESOLUTION........: 1920x804</span><br><span class="line">ASPECT RATIO......: 2.40:1</span><br><span class="line">VIDEO CODEC.......: x264, High@L4.1, ref=5</span><br><span class="line">VIDEO BITRATE.....: 18631 Kbps</span><br><span class="line">AUDIO ............: English DTS 6ch @ 1509 Kbps</span><br><span class="line">SUBTITLES.........: English (US + CAN), English SDH (US + CAN), English SDH Colored (US + CAN) (.srt)</span><br><span class="line">SUBTITLES.........: Arabic, Chinese: Simplified x3 + Traditional x2, Czech, Czech SDH, Danish, Dutch, Finnish (.srt)</span><br><span class="line">SUBTITLES.........: French (Canadian + Fansub), French SDH (Canadian), German, Greek, Hungarian (.srt)</span><br><span class="line">SUBTITLES.........: Korean, Norwegian, Polish, Portuguese, Russian, Slovak, Spanish, Swedish, Ukrainian, Vietnamese (.srt)</span><br><span class="line">CHAPTERS..........: Included</span><br><span class="line">SOURCE............: Wind River 2017 1080p CZE Blu-ray AVC DTS-HD MA 5.1-HyperX (thx KHAN!)</span><br><span class="line">ENCODER...........: Elheym @ TayTO</span><br><span class="line">RELEASE DATE......: 27/07/2018</span><br><span class="line"></span><br><span class="line">Notes:</span><br><span class="line">* Encode from better source - more detailed PQ, not contained of any banding.</span><br><span class="line">* Comparisons US vs HUN can be found here. Mirror.</span><br><span class="line">* Some subs have it not perfect sync: some things I synchronized, some not. Chapters from US source, just synced.</span><br><span class="line">* Greetings: to all TayTO members, Juvelir, Delia, hungdaita, leewee, Nick007, rose, wolgone, superstar, and my friends!</span><br><span class="line"></span><br><span class="line">x264 [info]: frame I:996   Avg QP:15.00  size:205634</span><br><span class="line">x264 [info]: frame P:28265 Avg QP:16.22  size:131133</span><br><span class="line">x264 [info]: frame B:124763 Avg QP:17.38  size: 88566</span><br><span class="line">x264 [info]: consecutive B-frames:  1.2%  0.9%  5.1% 10.1% 13.4% 45.6% 10.7%  1.9%  3.8%  3.8%  2.2%  1.3%</span><br><span class="line">x264 [info]: kb/s:18631.12</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Writing library                          : x264 core 155 r2867+82 a249126 t_mod_Custom_2 [8-bit@all X86_64]</span><br><span class="line">Encoding settings                        : cabac=1 / ref=5 / deblock=1:-3:-3 / analyse=0x3:0x133 / me=umh / subme=11 / psy=1 / fade_compensate=0.00 / psy_rd=1.00:0.00 / mixed_ref=1 / me_range=32 / chroma_me=1 / trellis=2 / 8x8dct=1 / cqm=0 / deadzone=21,11 / fast_pskip=0 / chroma_qp_offset=-2 / threads=6 / lookahead_threads=1 / sliced_threads=0 / nr=0 / decimate=0 / interlaced=0 / bluray_compat=0 / constrained_intra=0 / fgo=0 / bframes=11 / b_pyramid=2 / b_adapt=2 / b_bias=0 / direct=3 / weightb=1 / open_gop=0 / weightp=2 / keyint=240 / keyint_min=23 / scenecut=40 / intra_refresh=0 / rc_lookahead=60 / rc=crf / mbtree=0 / crf=17.2000 / qcomp=0.65 / qpmin=0:0:0 / qpmax=69:69:69 / qpstep=4 / vbv_maxrate=62500 / vbv_bufsize=78125 / crf_max=0.0 / nal_hrd=none / filler=0 / ip_ratio=1.30 / pb_ratio=1.20 / aq=3:0.80 / aq-sensitivity=10.00 / aq-factor=1.00:1.00:1.00 / aq2=0 / aq3=0 / zones=1290,2472,crf=15/3217,3266,crf=13/10448,10600,crf=13/26013,27426,crf=15/55914,56022,crf=16/58042,61110,crf=16/64172,64662,crf=13/68501,75628,crf=16/77329,78486,crf=15/136254,138083,crf=15/140176,143825,crf=16</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">release info</span><br><span class="line"></span><br><span class="line">RELEASE NAME..: Gladiator.2000.2in1.1080p.BluRay.x264-EbP</span><br><span class="line">RELEASE DATE..: 12/08/2010</span><br><span class="line">RELEASE SIZE..: 16.9 GB</span><br><span class="line">RUNTIME.......: 2:50:56(Extended), 2:34:58(Theatrical)</span><br><span class="line">VIDEO CODEC...: x264, 2pass, L4.1</span><br><span class="line">FRAMERATE.....: 23.976 fps</span><br><span class="line">BITRATE.......: 12 Mbps</span><br><span class="line">RESOLUTION....: 1920x816</span><br><span class="line">AUDIO 1.......: Eng AC3 5.1 @ 640 Kbps</span><br><span class="line">AUDIO 2.......: Commentary with Russell Crowe</span><br><span class="line">AUDIO 3.......: Commentary with Ridley Scott</span><br><span class="line">SUBTITLES.....: eng, dan, dut, fin, fre, ger, ita, nor,</span><br><span class="line">por, spa, swe, commentary</span><br><span class="line">CHAPTER.......: Included</span><br><span class="line">SOURCE........: REMASTERED 1080p AVC Blu-ray DTS-HD MA 5.1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Writing library                          : x264 core 104 r1688 0b36c6d</span><br><span class="line">Encoding settings                        : cabac=1 / ref=5 / deblock=1:-3:-3 / analyse=0x3:0x113 / me=tesa / subme=10 / psy=1 / psy_rd=1.10:0.00 / mixed_ref=1 / me_range=16 / chroma_me=1 / trellis=2 / 8x8dct=1 / cqm=0 / deadzone=21,11 / fast_pskip=0 / chroma_qp_offset=-2 / threads=12 / sliced_threads=0 / nr=0 / decimate=0 / interlaced=0 / constrained_intra=0 / bframes=7 / b_pyramid=2 / b_adapt=2 / b_bias=0 / direct=3 / weightb=1 / open_gop=1 / weightp=2 / keyint=250 / keyint_min=23 / scenecut=40 / intra_refresh=0 / rc=2pass / mbtree=0 / bitrate=12000 / ratetol=1.0 / qcomp=0.60 / qpmin=10 / qpmax=51 / qpstep=4 / cplxblur=20.0 / qblur=0.5 / ip_ratio=1.40 / pb_ratio=1.30 / aq=1:0.70</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.Release.Info</span><br><span class="line">ENCODER...................: Jubowo @ WiKi</span><br><span class="line">RELEASE DATE..............: 2018-07-27</span><br><span class="line">RELEASE SIZE..............: 9.75 GiB</span><br><span class="line">SOURCE....................: JPN 1080p Blu-ray AVC DTS-HD MA 5.1-TTG</span><br><span class="line"></span><br><span class="line">.Media.Info</span><br><span class="line">RUNTIME...................: 1h:58m:41s</span><br><span class="line">VIDEO CODEC...............: x264 @ 10244 kbps</span><br><span class="line">RESOLUTION................: 1920x804</span><br><span class="line">DISPLAY ASPECT RATIO......: 2.39:1</span><br><span class="line">FRAME RATE................: 23.976 fps</span><br><span class="line">AUDiO CODEC...............: Japanese DTS 5.1 @ 1510 kbps</span><br><span class="line">SUBTiTLES.................: CHT_SUBPiG</span><br><span class="line"></span><br><span class="line">.x264.Info</span><br><span class="line">x264 [info]: profile High, level 4.1 @ pass2</span><br><span class="line">x264 [info]: frame I:1034 Avg QP:11.27 size:240725</span><br><span class="line">x264 [info]: frame P:33307 Avg QP:13.65 size:103687</span><br><span class="line">x264 [info]: frame B:136399 Avg QP:15.05 size: 39684</span><br><span class="line">x264 [info]: consecutive B-frames: 2.1% 1.5% 6.3% 5.6% 9.3% 61.0% 7.6% 1.1% 2.5% 0.9% 2.2%</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Writing library : x264 core 129 r2245+704+36 8e61944 tMod+MixAQ [8-</span><br><span class="line">bit@4:2:0 X86_64]</span><br><span class="line">Encoding settings : cabac=1 / ref=5 / deblock=1:-3:-3 / analyse=0x3:0x133 / me=umh / subme=11 / psy=1 / fade_compensate=0.00 / psy_rd=1.05:0.10 / mixed_ref=1 / me_range=64 / chroma_me=1 / trellis=2 / 8x8dct=1 / cqm=0 / deadzone=21,11 / fast_pskip=0 / chroma_qp_offset=-3 / threads=18 / lookahead_threads=3 / sliced_threads=0 / nr=0 / decimate=0 / interlaced=0 / bluray_compat=0 / constrained_intra=0 / fgo=0 / bframes=10 / b_pyramid=2 / b_adapt=2 / b_bias=0 / direct=3 / weightb=1 / open_gop=0 / weightp=2 / keyint=250 / keyint_min=23 / scenecut=40 / intra_refresh=0 / rc=2pass / mbtree=0 / bitrate=10244 / ratetol=1.0 / qcomp=0.70 / qpmin=0 / qpmax=69 / qpstep=4 / cplxblur=20.0 / qblur=0.5 / ip_ratio=1.40 / pb_ratio=1.30 / aq=1 / aq-strength=0.90 / aq-sensitivity=10.00 / aq-ifactor=1.00 / aq-pfactor=1.00 / aq-bfactor=1.00 / aq2=0</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="参数选择"><a href="#参数选择" class="headerlink" title="参数选择"></a>参数选择</h2><h3 id="固定参数-Part-1"><a href="#固定参数-Part-1" class="headerlink" title="固定参数 Part 1"></a>固定参数 Part 1</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--level 4.1 --vbv-bufsize 78125 --vbv-maxrate 62500</span><br></pre></td></tr></table></figure>
+
+<p>考虑播放硬件兼容性设置，以上设置是大部分桌面播放设置支持的规格</p>
+<h3 id="固定参数-Part-2"><a href="#固定参数-Part-2" class="headerlink" title="固定参数 Part 2"></a>固定参数 Part 2</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--preset placebo --me umh  --merange 32 --subme 11 --ref 4? --bframes 16? --deblock -3:-3 --no-fast-pskip --no-mbtree --no-dct-decimate</span><br></pre></td></tr></table></figure>
+
+<h4 id="preset"><a href="#preset" class="headerlink" title="preset"></a>preset</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">--preset &lt;string&gt;       Use a preset to select encoding settings [medium]</span><br><span class="line">                                  Overridden by user settings.</span><br><span class="line">                                  - veryslow:</span><br><span class="line">                                    --b-adapt 2 --bframes 8 --direct auto</span><br><span class="line">                                    --me umh --merange 24 --partitions all</span><br><span class="line">                                    --ref 16 --subme 10 --trellis 2</span><br><span class="line">                                    --rc-lookahead 60</span><br><span class="line">                                  - placebo:</span><br><span class="line">                                    --bframes 16 --b-adapt 2 --direct auto</span><br><span class="line">                                    --slow-firstpass --no-fast-pskip</span><br><span class="line">                                    --me tesa --merange 24 --partitions all</span><br><span class="line">                                    --rc-lookahead 60 --ref 16 --subme 11</span><br><span class="line">                                    --trellis 2</span><br></pre></td></tr></table></figure>
+
+<p>me方法是preset veryslow和placebo主要区别，实际上无论是在哪个preset基础上修改参数，最终我们还是用到一样的结果。注意preset选这两个档次隐性的包含了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--b-adapt 2 --direct auto --trellis 2</span><br></pre></td></tr></table></figure>
+
+<h4 id="–me"><a href="#–me" class="headerlink" title="–me"></a>–me</h4><blockquote>
+<p>Motion search method</p>
+</blockquote>
+<p>umh|esa|tesa</p>
+<p>一般用umh配合32-48的merange</p>
+<h4 id="–merange"><a href="#–merange" class="headerlink" title="–merange"></a>–merange</h4><blockquote>
+<p>Motion search range</p>
+</blockquote>
+<p>32</p>
+<p>x265的参数设置对于merange的为什么设置57这么一个值讲的比较清楚。<br>x264的宏块16x16，这里设置32是16*2的意思？<br>如果me选tesa一般可配合小一点的merange，例如16</p>
+<h4 id="–subme"><a href="#–subme" class="headerlink" title="–subme"></a>–subme</h4><blockquote>
+<p>Set the subpixel estimation complexity. RDO(Rate Distortion Optimization)</p>
+</blockquote>
+<p>10|11</p>
+<p>不怕慢的选11</p>
+<h4 id="–no-mbtree"><a href="#–no-mbtree" class="headerlink" title="–no-mbtree"></a>–no-mbtree</h4><p><a target="_blank" rel="noopener" href="https://forum.doom9.org/showthread.php?t=166356">https://forum.doom9.org/showthread.php?t=166356</a></p>
+<p>蓝光电影压制的达成共识的选项，具体的讨论参考上贴内容</p>
+<h4 id="–no-fast-pskip"><a href="#–no-fast-pskip" class="headerlink" title="–no-fast-pskip"></a>–no-fast-pskip</h4><blockquote>
+<p>Disables early skip detection on P-frames. Very slightly increases quality at a large speed cost.</p>
+</blockquote>
+<p>为了质量而关闭的选项</p>
+<h4 id="–no-dct-decimate"><a href="#–no-dct-decimate" class="headerlink" title="–no-dct-decimate"></a>–no-dct-decimate</h4><blockquote>
+<p>DCT Decimation will drop DCT blocks it deems “unnecessary”. This will improve coding efficiency, with a usually negligible loss in quality. Setting this option will disable it.</p>
+</blockquote>
+<p>为了质量而关闭的选项</p>
+<h4 id="–deblock"><a href="#–deblock" class="headerlink" title="–deblock"></a>–deblock</h4><p><a target="_blank" rel="noopener" href="https://forum.doom9.org/showthread.php?t=109747">https://forum.doom9.org/showthread.php?t=109747</a></p>
+<p><code>-3:-3</code>是真人电影的惯用设置，具体的讨论参考上贴内容</p>
+<h4 id="–ref"><a href="#–ref" class="headerlink" title="–ref"></a>–ref</h4><p>ref这个参数按照level 4.1是有最大限制的，如果是全屏的1080p应该是4，但是由于我们切过黑边，可能调整成5。具体的计算办法<code>8388608 / (width * height)</code></p>
+<h4 id="–bframes"><a href="#–bframes" class="headerlink" title="–bframes"></a>–bframes</h4><p>先用16测试，根据x264返回结果确定</p>
+<h3 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h3><p>剩下的这些参数是控制码率的，针对具体电影具体调整</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--crf ? --qcomp 0.60 --psy-rd 1.00:0.00 --aq-mode 1 --aq-strength 0.8 --ipratio 1.4 --pbratio 1.3</span><br></pre></td></tr></table></figure>
+
+<h4 id="–crf"><a href="#–crf" class="headerlink" title="–crf"></a>–crf</h4><blockquote>
+<p>The final ratecontrol method: Constant Ratefactor</p>
+</blockquote>
+<p>15-20</p>
+<p>最主要的一个控制码率（质量）参数</p>
+<h4 id="–qcomp"><a href="#–qcomp" class="headerlink" title="–qcomp"></a>–qcomp</h4><blockquote>
+<p>Quantizer curve compression factor. 0.0 =&gt; Constant Bitrate, 1.0 =&gt; Constant Quantizer</p>
+</blockquote>
+<p>0.6-0.8</p>
+<p>控制时间轴上码率的分配，变化越快的画面倾向与分配跟多的码率，多多少就是有这个参数来控制。注意这个参数是在计算公式中是指数，不宜变化太大。一般用默认值0.6即可，遇到一些动作片，速度与激情，变形金刚这种可以稍微调高一点</p>
+<h4 id="–aq-mode-–aq-strength"><a href="#–aq-mode-–aq-strength" class="headerlink" title="–aq-mode –aq-strength"></a>–aq-mode –aq-strength</h4><blockquote>
+<p>Adaptive Quantization Mode/Strength</p>
+</blockquote>
+<p>–aq-mode 1 –aq-strength 0.8-0.6</p>
+<p>官方中–aq-mode 1是标准方法，–aq-mode 2是实验方法。不少mod版本的x264都在这个上面做文章，具体情况参考具体mod版本的说明<br>aq-strength控制的是同一张画面中码率的分布，值越高越倾向于分配给细节更多码率。当一张画面颗粒感比较强应该用较低的值。0.8是建议值，可以尝试跟宽的取值范围</p>
+<h4 id="–ipratio-–pbratio"><a href="#–ipratio-–pbratio" class="headerlink" title="–ipratio –pbratio"></a>–ipratio –pbratio</h4><blockquote>
+<p>Modifies the target average increase in quantizer for I-frames as compared to P-frames. Higher values increase the quality of I-frames generated</p>
+<p>Modifies the target average decrease in quantizer for B-frames as compared to P-frames. Higher values decrease the quality of B-frames generated</p>
+</blockquote>
+<p>–ipratio 1.4 –pbratio 1.3</p>
+<p>这一对参数，一般同时变化。这两参数控制i帧与p帧，p帧与b帧的质量比。当你做测试的时候发先p帧，b帧质量比较差，而i帧都满意的时候就该把这个值调小一点了。会明显加大整体码率</p>
+<h4 id="–psy-rd"><a href="#–psy-rd" class="headerlink" title="–psy-rd"></a>–psy-rd</h4><blockquote>
+<p>The first number is the strength of Psy-RDO to use (requires subme&gt;=6 to activate). The second number is the strength of Psy-Trellis (requires trellis&gt;=1 to activate). Note that Trellis is still considered ‘experimental’, and almost certainly is a Bad Thing for at least cartoons.</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://forum.doom9.org/showthread.php?t=138293">https://forum.doom9.org/showthread.php?t=138293</a></p>
+<p>讨论参考上帖，建议默认，或小幅度调整</p>
+<h3 id="最终参数"><a href="#最终参数" class="headerlink" title="最终参数"></a>最终参数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--level 4.1 --vbv-bufsize 78125 --vbv-maxrate 62500 --preset placebo --me umh  --merange 32 --subme 11 --ref ? --bframes ? --deblock -3:-3 --no-fast-pskip --no-mbtree --no-dct-decimate --crf ? --qcomp 0.60? --psy-rd 1.00:0.00? --aq-mode 1 --aq-strength 0.8? --ipratio 1.4? --pbratio 1.3?</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/pt/" rel="tag"># pt</a>
+              <a href="/tags/video-encode/" rel="tag"># video.encode</a>
+              <a href="/tags/x264/" rel="tag"># x264</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/10/09/video-encoding-workflow/" rel="prev" title="蓝光视频压制的一般流程">
+                  <i class="fa fa-chevron-left"></i> 蓝光视频压制的一般流程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/10/09/uhd-x265-options/" rel="next" title="x265重编码UHD原盘">
+                  x265重编码UHD原盘 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">enigmaz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

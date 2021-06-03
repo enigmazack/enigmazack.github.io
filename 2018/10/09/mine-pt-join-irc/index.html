@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;enigmaz.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="本文原始发表于mine.pt的一篇irc自动下载教学贴。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mine.pt irc自动订阅指南">
+<meta property="og:url" content="https://enigmaz.gitee.io/2018/10/09/mine-pt-join-irc/index.html">
+<meta property="og:site_name" content="EniGmAz">
+<meta property="og:description" content="本文原始发表于mine.pt的一篇irc自动下载教学贴。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-09T11:48:51.000Z">
+<meta property="article:modified_time" content="2021-06-02T15:25:34.450Z">
+<meta property="article:author" content="enigmaz">
+<meta property="article:tag" content="pt">
+<meta property="article:tag" content="mine.pt">
+<meta property="article:tag" content="autodl-irssi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://enigmaz.gitee.io/2018/10/09/mine-pt-join-irc/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;enigmaz.gitee.io&#x2F;2018&#x2F;10&#x2F;09&#x2F;mine-pt-join-irc&#x2F;&quot;,&quot;path&quot;:&quot;2018&#x2F;10&#x2F;09&#x2F;mine-pt-join-irc&#x2F;&quot;,&quot;title&quot;:&quot;mine.pt irc自动订阅指南&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>mine.pt irc自动订阅指南 | EniGmAz</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">EniGmAz</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#irssi"><span class="nav-number">1.1.</span> <span class="nav-text">irssi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#autodl-irssi"><span class="nav-number">1.2.</span> <span class="nav-text">autodl-irssi</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E6%9C%AC%E7%AB%99irc%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%98%B5%E7%A7%B0"><span class="nav-number">2.</span> <span class="nav-text">注册本站irc服务器昵称</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E7%AB%99irc%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-number">2.1.</span> <span class="nav-text">本站irc服务器的基本信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E6%98%B5%E7%A7%B0"><span class="nav-number">2.2.</span> <span class="nav-text">注册昵称</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#autodl-irssi%E7%9A%84tracker%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">autodl-irssi的tracker模板文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#autodl-irssi%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">autodl-irssi的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">使用</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">enigmaz</p>
+  <div class="site-description" itemprop="description">随便写写</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://enigmaz.gitee.io/2018/10/09/mine-pt-join-irc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="enigmaz">
+      <meta itemprop="description" content="随便写写">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EniGmAz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mine.pt irc自动订阅指南
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-09 19:48:51" itemprop="dateCreated datePublished" datetime="2018-10-09T19:48:51+08:00">2018-10-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-02 23:25:34" itemprop="dateModified" datetime="2021-06-02T23:25:34+08:00">2021-06-02</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/PT/" itemprop="url" rel="index"><span itemprop="name">PT</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>本文原始发表于mine.pt的一篇irc自动下载教学贴。</p>
+<span id="more"></span>
+
+<p>本站提供在国外站点十分流行的irc自动订阅功能。irc订阅相对于rss订阅有超低延迟的优势，甚至网页还没刷新，你就能下到最新的种子。这一功能在国外站点几乎是必备，只是国内由于irc用户少，没有站点愿意开发这个功能。很幸运，本站的开发者同时是一位irc大神，他在网站设计之初就加入了这一功能，下面我将详细介绍使用irc实现自动订阅的办法。</p>
+<p>本教程以Linux系统上的实现为主，实现需要一定基础。有空我再单独写一篇Windows的教程。</p>
+<h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><h3 id="irssi"><a href="#irssi" class="headerlink" title="irssi"></a>irssi</h3><p>irssi是一款非常流行的ncurses界面irc客户端，支持perl脚本。大多数Linux发行版本可以直接安装irssi</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu</span></span><br><span class="line">sudo apt install irssi</span><br><span class="line"></span><br><span class="line"><span class="comment"># Archlinux</span></span><br><span class="line">sudo pacman -S irssi</span><br></pre></td></tr></table></figure>
+
+<h3 id="autodl-irssi"><a href="#autodl-irssi" class="headerlink" title="autodl-irssi"></a>autodl-irssi</h3><p><a target="_blank" rel="noopener" href="https://github.com/autodl-community/autodl-irssi">项目地址</a>,专门用来实现irc自动订阅的irssi脚本。其功能强大、完善，我的办法也是借助这一脚本实现。</p>
+<p>脚本的安装参考其<a target="_blank" rel="noopener" href="https://autodl-community.github.io/autodl-irssi/installation/">官方文档</a>，首先安装脚本依赖的perl模块，可以用<code>cpan</code>安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cpan Archive::Zip Net::SSLeay HTML::Entities XML::LibXML Digest::SHA JSON JSON::XS</span><br></pre></td></tr></table></figure>
+
+<p>也可以用系统的软件包管理器安装(个人推荐)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Archlinux</span></span><br><span class="line">sudo pacman -S perl-archive-zip perl-digest-sha1 perl-html-parser perl-json perl-json-xs perl-net-ssleay perl-xml-libxml perl-xml-libxslt</span><br></pre></td></tr></table></figure>
+
+<p>然后安装autodl-irssi脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.irssi/scripts/autorun</span><br><span class="line"><span class="built_in">cd</span> ~/.irssi/scripts</span><br><span class="line">curl -sL http://git.io/vlcND | grep -Po <span class="string">&#x27;(?&lt;=&quot;browser_download_url&quot;: &quot;)(.*-v[\d.]+.zip)&#x27;</span> | xargs wget --quiet -O autodl-irssi.zip</span><br><span class="line">unzip -o autodl-irssi.zip</span><br><span class="line">rm autodl-irssi.zip</span><br><span class="line">cp autodl-irssi.pl autorun/</span><br><span class="line">mkdir -p ~/.autodl</span><br><span class="line">touch ~/.autodl/autodl.cfg</span><br></pre></td></tr></table></figure>
+
+<p>这个脚本会自动加载，<code>autodl.cfg</code>是配置文件，后面会说怎么写。</p>
+<h2 id="注册本站irc服务器昵称"><a href="#注册本站irc服务器昵称" class="headerlink" title="注册本站irc服务器昵称"></a>注册本站irc服务器昵称</h2><p>首先我们需要注册一个本站irc服务器的昵称。</p>
+<h3 id="本站irc服务器的基本信息"><a href="#本站irc服务器的基本信息" class="headerlink" title="本站irc服务器的基本信息"></a>本站irc服务器的基本信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ircAnnounce.server = irc.mean.im</span><br><span class="line">ircAnnounce.port = 16667</span><br><span class="line">ircAnnounce.channel = #mineAnnounce</span><br><span class="line">ircAnnounce.anncounceNick = mineAnnouncer</span><br></pre></td></tr></table></figure>
+
+<h3 id="注册昵称"><a href="#注册昵称" class="headerlink" title="注册昵称"></a>注册昵称</h3><p>本教程以irssi为例，详细描述注册昵称步骤，当然你完全可以用你自己习惯的irc客户端完成这一任务。</p>
+<p>首先连接irc服务器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/connect irc.mean.im/16667</span><br></pre></td></tr></table></figure>
+
+<p>注册昵称，推荐与网站昵称保持一致，方便以后别人认出你</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/nick &lt;nick&gt;</span><br><span class="line">/msg NickServ REGISTER &lt;passwd&gt; &lt;email&gt;</span><br></pre></td></tr></table></figure>
+
+<p>系统会给你发一个邮件，里面有确认信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/msg NickServ CONFIRM &lt;code&gt;</span><br></pre></td></tr></table></figure>
+
+<p>确认成功后，以后登录就可以用自己的密码来验证身份了，第二次进入irc服务器只需要输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/nick &lt;nick&gt;</span><br><span class="line">/msg NickServ IDENTIFY &lt;passwd&gt;</span><br></pre></td></tr></table></figure>
+
+<p>记住你的昵称、邮箱、密码等信息，在使用autodl-irssi的时候要用到。</p>
+<h2 id="autodl-irssi的tracker模板文件"><a href="#autodl-irssi的tracker模板文件" class="headerlink" title="autodl-irssi的tracker模板文件"></a>autodl-irssi的tracker模板文件</h2><p>autodl-irssi本身提供了很多站点的模板文件，详见<a target="_blank" rel="noopener" href="https://github.com/autodl-community/autodl-trackers">autodl-trackers
+</a>，这个是官方维护的一个列表。由于我们是新站点，还没有被收录，现在只能自己手动写一个凑合着用。待功能开发完善了我会尝试提pr，把我们的站点也加入到官方列表中。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">trackerinfo</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">&quot;mine&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">shortName</span>=<span class="string">&quot;MINE&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">longName</span>=<span class="string">&quot;MINEPT&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">siteName</span>=<span class="string">&quot;mine.pt&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">description</span> <span class="attr">text</span>=<span class="string">&quot;Find your passkey first.&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">passkey</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">server</span></span></span><br><span class="line"><span class="tag">            <span class="attr">network</span>=<span class="string">&quot;Mean&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">serverNames</span>=<span class="string">&quot;irc.mean.im&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">channelNames</span>=<span class="string">&quot;#mineAnnounce&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">announcerNames</span>=<span class="string">&quot;mineAnnouncer&quot;</span></span></span><br><span class="line"><span class="tag">            /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servers</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">parseinfo</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">linepatterns</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">extract</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">regex</span> <span class="attr">value</span>=<span class="string">&quot;uploaded - torrent: (.*), type: (.*), size: (.*), (.*)sale: (.*), url: (https?://mine.pt/api/torrents/download/.*), at (.*)&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">vars</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">var</span> <span class="attr">name</span>=<span class="string">&quot;torrentName&quot;</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">var</span> <span class="attr">name</span>=<span class="string">&quot;category&quot;</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">var</span> <span class="attr">name</span>=<span class="string">&quot;$torrentSize&quot;</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">var</span> <span class="attr">name</span>=<span class="string">&quot;$tvserialInfo&quot;</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">var</span> <span class="attr">name</span>=<span class="string">&quot;$freeleechInfo&quot;</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">var</span> <span class="attr">name</span>=<span class="string">&quot;$baseUrl&quot;</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">var</span> <span class="attr">name</span>=<span class="string">&quot;$date&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">vars</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">extract</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">linepatterns</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">linematched</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">var</span> <span class="attr">name</span>=<span class="string">&quot;torrentUrl&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">var</span> <span class="attr">name</span>=<span class="string">&quot;$baseUrl&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span> <span class="attr">value</span>=<span class="string">&quot;/&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">var</span> <span class="attr">name</span>=<span class="string">&quot;passkey&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">var</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">linematched</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ignore</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ignore</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parseinfo</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">trackerinfo</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>把上面这个文件命名为<code>MINE.tracker</code>，放在目录<code>~/.irssi/scripts/AutodlIrssi/trackers/</code>下，autodl-irssi会自动加载其中的信息。</p>
+<h2 id="autodl-irssi的配置文件"><a href="#autodl-irssi的配置文件" class="headerlink" title="autodl-irssi的配置文件"></a>autodl-irssi的配置文件</h2><p>前面提到过这个文件，位置在<code>~/.autodl/autodl.cfg</code>，填写如下内容</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[options]</span></span><br><span class="line"><span class="attr">max-saved-releases</span> = <span class="number">100</span></span><br><span class="line"><span class="attr">save-download-history</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">download-duplicates</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">upload-type</span> = watchdir</span><br><span class="line"><span class="attr">upload-watch-dir</span> = /home/&lt;user&gt;/rtorrent/watch/start</span><br><span class="line"></span><br><span class="line"><span class="section">[irc]</span></span><br><span class="line"><span class="attr">auto-connect</span> =</span><br><span class="line"><span class="attr">user-name</span> =</span><br><span class="line"><span class="attr">real-name</span> =</span><br><span class="line"><span class="attr">output-server</span> =</span><br><span class="line"><span class="attr">output-channel</span> =</span><br><span class="line"><span class="attr">close-nickserv</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[server irc.mean.im]</span></span><br><span class="line"><span class="attr">port</span> = <span class="number">16667</span></span><br><span class="line"><span class="attr">nick</span> = &lt;nick&gt;</span><br><span class="line"><span class="attr">ident-password</span> = &lt;passwd&gt;</span><br><span class="line"><span class="attr">ident-email</span> = &lt;email&gt;</span><br><span class="line"></span><br><span class="line"><span class="section">[channel irc.mean.im]</span></span><br><span class="line">name = <span class="comment">#mineAnnounce</span></span><br><span class="line"></span><br><span class="line"><span class="section">[tracker mine]</span></span><br><span class="line"><span class="attr">passkey</span> = &lt;passkey&gt;</span><br><span class="line"></span><br><span class="line"><span class="section">[filter mine]</span></span><br><span class="line"><span class="attr">match-sites</span> = mine</span><br></pre></td></tr></table></figure>
+
+<p>这份配置文件的效果是监视本站的irc订阅频道，自动下载所有的种子文件到目录<code>/home/&lt;user&gt;/rtorrent/watch/start</code>下。注意所有&lt;&gt;的内容要替换成你实际的情况（不用尖括号括起来）。passkey到你网站个人信息中查询，切记保密，不要向他人或者公开场合发自己的passkey。关于autodl-irssi的配置文件更多的信息请阅读<a target="_blank" rel="noopener" href="https://autodl-community.github.io/autodl-irssi/configuration/overview/">官方文档</a></p>
+<p>当前由于irc报告的内容中并没有种子标签相关的信息，还无法实现过滤器的编写，相关功能以后会补充。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>用screen或者tmux开个窗口，运行<code>irssi</code>即可，所有的脚本会自动加载。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/pt/" rel="tag"># pt</a>
+              <a href="/tags/mine-pt/" rel="tag"># mine.pt</a>
+              <a href="/tags/autodl-irssi/" rel="tag"># autodl-irssi</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/10/09/mine-pt-encode-tools/" rel="prev" title="重编码相关网站与工具">
+                  <i class="fa fa-chevron-left"></i> 重编码相关网站与工具
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/10/09/video-encoding-StaxRip/" rel="next" title="StaxRip介绍">
+                  StaxRip介绍 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">enigmaz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

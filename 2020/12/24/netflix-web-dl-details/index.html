@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;enigmaz.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="详细记录下用 chrome 抓取视频的教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netflix 视频抓取细节">
+<meta property="og:url" content="https://enigmaz.gitee.io/2020/12/24/netflix-web-dl-details/index.html">
+<meta property="og:site_name" content="EniGmAz">
+<meta property="og:description" content="详细记录下用 chrome 抓取视频的教程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-24T08:16:02.000Z">
+<meta property="article:modified_time" content="2021-06-02T16:02:13.010Z">
+<meta property="article:author" content="enigmaz">
+<meta property="article:tag" content="web-dl">
+<meta property="article:tag" content="netflix">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://enigmaz.gitee.io/2020/12/24/netflix-web-dl-details/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;enigmaz.gitee.io&#x2F;2020&#x2F;12&#x2F;24&#x2F;netflix-web-dl-details&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;12&#x2F;24&#x2F;netflix-web-dl-details&#x2F;&quot;,&quot;title&quot;:&quot;Netflix 视频抓取细节&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Netflix 视频抓取细节 | EniGmAz</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">EniGmAz</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#widevine-l3-decryptor"><span class="nav-number">1.1.</span> <span class="nav-text">widevine-l3-decryptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tampermonkey-%E5%92%8C-Netflix-subtitle-downloader"><span class="nav-number">1.2.</span> <span class="nav-text">tampermonkey 和 Netflix - subtitle downloader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#netflix-1080p"><span class="nav-number">1.3.</span> <span class="nav-text">netflix-1080p</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="nav-number">2.</span> <span class="nav-text">地址的获取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E9%A2%91%E5%9C%B0%E5%9D%80%E7%9A%84%E8%A7%A3%E6%9E%90"><span class="nav-number">2.1.</span> <span class="nav-text">视频地址的解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86%E5%AF%86%E5%8C%99%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="nav-number">2.2.</span> <span class="nav-text">解密密匙的获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.3.</span> <span class="nav-text">视频流的下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E9%A2%91%E6%B5%81%E8%A7%A3%E5%AF%86"><span class="nav-number">2.4.</span> <span class="nav-text">视频流解密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="nav-number">2.5.</span> <span class="nav-text">音频的获取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Atmos-%E9%9F%B3%E9%A2%91%E7%9A%84%E6%8E%A2%E6%B5%8B%E4%B8%8E%E8%8E%B7%E5%8F%96-%EF%BC%88need-help%EF%BC%89"><span class="nav-number">2.5.1.</span> <span class="nav-text">Atmos 音频的探测与获取 （need help）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E5%B9%95%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="nav-number">2.6.</span> <span class="nav-text">字幕的获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%81%E8%A3%85"><span class="nav-number">2.7.</span> <span class="nav-text">封装</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">enigmaz</p>
+  <div class="site-description" itemprop="description">随便写写</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://enigmaz.gitee.io/2020/12/24/netflix-web-dl-details/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="enigmaz">
+      <meta itemprop="description" content="随便写写">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EniGmAz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Netflix 视频抓取细节
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-24 16:16:02" itemprop="dateCreated datePublished" datetime="2020-12-24T16:16:02+08:00">2020-12-24</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-03 00:02:13" itemprop="dateModified" datetime="2021-06-03T00:02:13+08:00">2021-06-03</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%A7%86%E9%A2%91%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">视频抓取</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>详细记录下用 chrome 抓取视频的教程</p>
+<span id="more"></span>
+
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="widevine-l3-decryptor"><a href="#widevine-l3-decryptor" class="headerlink" title="widevine-l3-decryptor"></a>widevine-l3-decryptor</h3><p>安装插件 widevine-l3-decryptor，<a target="_blank" rel="noopener" href="https://github.com/p00f/widevine-l3-decryptor">github 地址</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/p00f/widevine-l3-decryptor</span><br></pre></td></tr></table></figure>
+
+<p>chrome 插件打开开发者模式选择“加载已解压的扩展程序”，定位到项目地址即可。</p>
+<h3 id="tampermonkey-和-Netflix-subtitle-downloader"><a href="#tampermonkey-和-Netflix-subtitle-downloader" class="headerlink" title="tampermonkey 和 Netflix - subtitle downloader"></a>tampermonkey 和 Netflix - subtitle downloader</h3><p>安装插件 tampermonkey <a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-CN">chrome 商店地址</a>，并安装用户脚本 Netflix - subtitle downloader <a target="_blank" rel="noopener" href="https://greasyfork.org/zh-TW/scripts/26654-netflix-subtitle-downloader">greasyfork 地址</a></p>
+<p>改写脚本370行左右，向 console 输出 manifest 信息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hijack JSON.parse and JSON.stringify functions</span></span><br><span class="line">  (<span class="function">(<span class="params">parse, stringify</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">JSON</span>.parse = <span class="function"><span class="keyword">function</span> (<span class="params">text</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">const</span> data = parse(text);</span><br><span class="line">      <span class="keyword">if</span> (data &amp;&amp; data.result &amp;&amp; data.result.timedtexttracks &amp;&amp; data.result.movieId) &#123;</span><br><span class="line">        <span class="built_in">window</span>.dispatchEvent(<span class="keyword">new</span> CustomEvent(<span class="string">&#x27;netflix_sub_downloader_data&#x27;</span>, &#123;<span class="attr">detail</span>: data.result&#125;));</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;manifest:&#x27;</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(data)</span><br><span class="line">        <span class="built_in">console</span>.log(stringify(data))</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> data;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="netflix-1080p"><a href="#netflix-1080p" class="headerlink" title="netflix-1080p"></a>netflix-1080p</h3><p>安装插件 netflix-1080p，<a target="_blank" rel="noopener" href="https://github.com/enigmazack/netflix-1080p">github 地址</a>。</p>
+<p>chrome 插件打开开发者模式选择“加载已解压的扩展程序”，定位到项目地址/src目录即可。</p>
+<p>这是我正在改写的一个版本，其中 cadmium-playercore 是根据最新的官方版本改写的，主要是为了让 chrome 也能获取 1080p 视频。其他的功能还不能正常使用。</p>
+<h2 id="地址的获取"><a href="#地址的获取" class="headerlink" title="地址的获取"></a>地址的获取</h2><p>Netflix 的视频、音频、和字幕是分开的，只有视频流是采用了 DRM 加密的，音频和字幕未加密。所有的相关信息都在一个 manifest 中可以找到，这个 manifest 可以通过前文提到的魔改后的 Netflix - subtitle downloader 脚本输出到控制台。脚本会以两种形式输出，一种是直接在控制台里面输出 object，另一种是输出 JSON 字符串，方便 copy 到其他文本编辑器查看。推荐使用 vscode 来查看。</p>
+<h3 id="视频地址的解析"><a href="#视频地址的解析" class="headerlink" title="视频地址的解析"></a>视频地址的解析</h3><p>视频信息在 manifest 的 <code>result.video_tracks.streams</code> 属性下。Netflix 会准备很多视频流，用来根据网络情况实现码率的自动调整。我们抓取的时候只需要抓取码率最高的一条即可，一般是最后一条。</p>
+<p>但是，用官方原版的网页播放，在试用 chrome 的时候它最高只会推 720p 的流，所以我们需要用到 netflix-1080p 这个插件。这个插件的原理就是手动改写 <code>cadmium-playercore-xxx.xxx.xxx.js</code> 文件里面的 <code>profiles</code>。格式化之后大约在 112510 行左右</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">viewableId: n,</span><br><span class="line"><span class="comment">// profiles: g,</span></span><br><span class="line"><span class="attr">profiles</span>: [</span><br><span class="line">  <span class="string">&quot;playready-h264mpl30-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;playready-h264mpl31-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;playready-h264mpl40-dash&quot;</span>,</span><br><span class="line">  </span><br><span class="line">  <span class="string">&quot;playready-h264hpl30-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;playready-h264hpl31-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;playready-h264hpl40-dash&quot;</span>,</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// &quot;ddplus-5.1hq-dash&quot;,</span></span><br><span class="line">  <span class="comment">// &quot;ddplus-Atmos-dash&quot;,</span></span><br><span class="line">  <span class="string">&quot;heaac-2-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;heaac-2hq-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;heaac-5.1-dash&quot;</span>,</span><br><span class="line">            </span><br><span class="line">  <span class="string">&quot;simplesdh&quot;</span>,</span><br><span class="line">  <span class="string">&quot;nflx-cmisc&quot;</span>,</span><br><span class="line">  <span class="string">&quot;BIF240&quot;</span>,</span><br><span class="line">  <span class="string">&quot;BIF320&quot;</span></span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>playready-h264mpl40-dash</code> 和 <code>playready-h264hpl40-dash</code> 是 1080p 对应的 profile。</p>
+<p>在 20298 行左右有比较全的 profile 可选信息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">k.vM = <span class="string">&quot;playready-h264mpl30-dash&quot;</span>;</span><br><span class="line">k.YF = <span class="string">&quot;playready-h264mpl31-dash&quot;</span>;</span><br><span class="line">k.mV = <span class="string">&quot;playready-h264mpl40-dash&quot;</span>;</span><br><span class="line">k.C6a = <span class="string">&quot;playready-h264hpl22-dash&quot;</span>;</span><br><span class="line">k.jV = <span class="string">&quot;playready-h264hpl30-dash&quot;</span>;</span><br><span class="line">k.kV = <span class="string">&quot;playready-h264hpl31-dash&quot;</span>;</span><br><span class="line">k.lV = <span class="string">&quot;playready-h264hpl40-dash&quot;</span>;</span><br><span class="line">k.o8 = <span class="string">&quot;hevc-main-L30-dash-cenc&quot;</span>;</span><br><span class="line">k.p8 = <span class="string">&quot;hevc-main-L31-dash-cenc&quot;</span>;</span><br><span class="line">k.q8 = <span class="string">&quot;hevc-main-L40-dash-cenc&quot;</span>;</span><br><span class="line">k.r8 = <span class="string">&quot;hevc-main-L41-dash-cenc&quot;</span>;</span><br><span class="line">k.s8 = <span class="string">&quot;hevc-main-L50-dash-cenc&quot;</span>;</span><br><span class="line">k.t8 = <span class="string">&quot;hevc-main-L51-dash-cenc&quot;</span>;</span><br><span class="line">k.k8 = <span class="string">&quot;hevc-main10-L30-dash-cenc&quot;</span>;</span><br><span class="line">k.l8 = <span class="string">&quot;hevc-main10-L31-dash-cenc&quot;</span>;</span><br><span class="line">k.m8 = <span class="string">&quot;hevc-main10-L40-dash-cenc&quot;</span>;</span><br><span class="line">k.n8 = <span class="string">&quot;hevc-main10-L41-dash-cenc&quot;</span>;</span><br><span class="line">k.$F = <span class="string">&quot;hevc-main10-L50-dash-cenc&quot;</span>;</span><br><span class="line">k.aG = <span class="string">&quot;hevc-main10-L51-dash-cenc&quot;</span>;</span><br><span class="line">k.tV = <span class="string">&quot;hevc-main10-L30-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.vV = <span class="string">&quot;hevc-main10-L31-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.xV = <span class="string">&quot;hevc-main10-L40-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.zV = <span class="string">&quot;hevc-main10-L41-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.uV = <span class="string">&quot;hevc-main10-L30-dash-cenc-prk-do&quot;</span>;</span><br><span class="line">k.wV = <span class="string">&quot;hevc-main10-L31-dash-cenc-prk-do&quot;</span>;</span><br><span class="line">k.yV = <span class="string">&quot;hevc-main10-L40-dash-cenc-prk-do&quot;</span>;</span><br><span class="line">k.AV = <span class="string">&quot;hevc-main10-L41-dash-cenc-prk-do&quot;</span>;</span><br><span class="line">k.BV = <span class="string">&quot;hevc-main10-L50-dash-cenc-prk-do&quot;</span>;</span><br><span class="line">k.CV = <span class="string">&quot;hevc-main10-L51-dash-cenc-prk-do&quot;</span>;</span><br><span class="line">k.MXb = <span class="string">&quot;hevc-main-L30-L31-dash-cenc-tl&quot;</span>;</span><br><span class="line">k.NXb = <span class="string">&quot;hevc-main-L31-L40-dash-cenc-tl&quot;</span>;</span><br><span class="line">k.OXb = <span class="string">&quot;hevc-main-L40-L41-dash-cenc-tl&quot;</span>;</span><br><span class="line">k.PXb = <span class="string">&quot;hevc-main-L50-L51-dash-cenc-tl&quot;</span>;</span><br><span class="line">k.IXb = <span class="string">&quot;hevc-main10-L30-L31-dash-cenc-tl&quot;</span>;</span><br><span class="line">k.JXb = <span class="string">&quot;hevc-main10-L31-L40-dash-cenc-tl&quot;</span>;</span><br><span class="line">k.KXb = <span class="string">&quot;hevc-main10-L40-L41-dash-cenc-tl&quot;</span>;</span><br><span class="line">k.LXb = <span class="string">&quot;hevc-main10-L50-L51-dash-cenc-tl&quot;</span>;</span><br><span class="line">k.mM = <span class="string">&quot;hevc-dv5-main10-L30-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.nM = <span class="string">&quot;hevc-dv5-main10-L31-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.OF = <span class="string">&quot;hevc-dv5-main10-L40-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.oM = <span class="string">&quot;hevc-dv5-main10-L41-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.pM = <span class="string">&quot;hevc-dv5-main10-L50-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.UU = <span class="string">&quot;hevc-dv5-main10-L51-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.d8 = <span class="string">&quot;hevc-hdr-main10-L30-dash-cenc&quot;</span>;</span><br><span class="line">k.e8 = <span class="string">&quot;hevc-hdr-main10-L31-dash-cenc&quot;</span>;</span><br><span class="line">k.f8 = <span class="string">&quot;hevc-hdr-main10-L40-dash-cenc&quot;</span>;</span><br><span class="line">k.g8 = <span class="string">&quot;hevc-hdr-main10-L41-dash-cenc&quot;</span>;</span><br><span class="line">k.h8 = <span class="string">&quot;hevc-hdr-main10-L50-dash-cenc&quot;</span>;</span><br><span class="line">k.i8 = <span class="string">&quot;hevc-hdr-main10-L51-dash-cenc&quot;</span>;</span><br><span class="line">k.yM = <span class="string">&quot;hevc-hdr-main10-L30-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.zM = <span class="string">&quot;hevc-hdr-main10-L31-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.ZF = <span class="string">&quot;hevc-hdr-main10-L40-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.AM = <span class="string">&quot;hevc-hdr-main10-L41-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.oV = <span class="string">&quot;hevc-hdr-main10-L50-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.pV = <span class="string">&quot;hevc-hdr-main10-L51-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.xDa = <span class="string">&quot;vp9-profile0-L21-dash-cenc&quot;</span>;</span><br><span class="line">k.oN = <span class="string">&quot;vp9-profile0-L30-dash-cenc&quot;</span>;</span><br><span class="line">k.pN = <span class="string">&quot;vp9-profile0-L31-dash-cenc&quot;</span>;</span><br><span class="line">k.qN = <span class="string">&quot;vp9-profile0-L40-dash-cenc&quot;</span>;</span><br><span class="line">k.sDa = <span class="string">&quot;vp9-profile2-L30-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.tDa = <span class="string">&quot;vp9-profile2-L31-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.uDa = <span class="string">&quot;vp9-profile2-L40-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.vDa = <span class="string">&quot;vp9-profile2-L50-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.wDa = <span class="string">&quot;vp9-profile2-L51-dash-cenc-prk&quot;</span>;</span><br><span class="line">k.Nsa = <span class="string">&quot;av1-main-L20-dash-cbcs-prk&quot;</span>;</span><br><span class="line">k.Osa = <span class="string">&quot;av1-main-L21-dash-cbcs-prk&quot;</span>;</span><br><span class="line">k.Psa = <span class="string">&quot;av1-main-L30-dash-cbcs-prk&quot;</span>;</span><br><span class="line">k.Qsa = <span class="string">&quot;av1-main-L31-dash-cbcs-prk&quot;</span>;</span><br><span class="line">k.Rsa = <span class="string">&quot;av1-main-L40-dash-cbcs-prk&quot;</span>;</span><br><span class="line">k.Ssa = <span class="string">&quot;av1-main-L41-dash-cbcs-prk&quot;</span>;</span><br><span class="line">k.Tsa = <span class="string">&quot;av1-main-L50-dash-cbcs-prk&quot;</span>;</span><br><span class="line">k.Usa = <span class="string">&quot;av1-main-L51-dash-cbcs-prk&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>但不是每一种都能通过这种方式在 chrome 上获取， 大部分随意组合的 profile 都会报错。</p>
+<h3 id="解密密匙的获取"><a href="#解密密匙的获取" class="headerlink" title="解密密匙的获取"></a>解密密匙的获取</h3><p>安装了 widevine-l3-decryptor 之后，只要是 chrome 上在放 Netflix 的视频，控制台就会输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WidevineDecryptor: Found key: 709487bfa80678a4fd32fd26cbf42b60 (KID=00000000056167750000000000000000)</span><br></pre></td></tr></table></figure>
+
+<p>由于 Netflix 准备了很多码率和分辨率的视频，大部分时候它们不一定公用同一个密匙，这个时候会输出很多条。不用一个个的试，manifest 里面已经包含了对应的 KID 信息</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;trackType&quot;</span>: <span class="string">&quot;PRIMARY&quot;</span>,</span><br><span class="line"><span class="string">&quot;content_profile&quot;</span>: <span class="string">&quot;playready-h264mpl40-dash&quot;</span>,</span><br><span class="line"><span class="string">&quot;bitrate&quot;</span>: <span class="number">6490</span>,</span><br><span class="line"><span class="string">&quot;peakBitrate&quot;</span>: <span class="number">0</span>,</span><br><span class="line"><span class="string">&quot;dimensionsCount&quot;</span>: <span class="number">2</span>,</span><br><span class="line"><span class="string">&quot;dimensionsLabel&quot;</span>: <span class="string">&quot;2D&quot;</span>,</span><br><span class="line"><span class="string">&quot;drmHeaderId&quot;</span>: <span class="string">&quot;0000000005e4d1810000000000000000&quot;</span>,</span><br></pre></td></tr></table></figure>
+
+<p>你只需要把 KID 和 drmHeaderId 对上号即可。</p>
+<h3 id="视频流的下载"><a href="#视频流的下载" class="headerlink" title="视频流的下载"></a>视频流的下载</h3><p>每一个视频流都有个 urls 对象</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;urls&quot;</span>: [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://ipv4-c035-hkg001-ix.1.oca.nflxvideo.net/?o=xxx&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;cdn_id&quot;</span>: <span class="number">63365</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://ipv4-c033-hkg001-ix.1.oca.nflxvideo.net/?o=xxx&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;cdn_id&quot;</span>: <span class="number">63363</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;https://ipv4-c104-sea001-ix.1.oca.nflxvideo.net/?o=xxx&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;cdn_id&quot;</span>: <span class="number">18327</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>包含三个下载地址，这个三个地址下的东西是一样的，只是对应不同的 cdn 而已，任选一个即可。可以直接用 chrome 下载。下载完成后重命名下载的文件， &lt;任意名称&gt;.mp4 即可。</p>
+<h3 id="视频流解密"><a href="#视频流解密" class="headerlink" title="视频流解密"></a>视频流解密</h3><p>我用的 bento4 套件，命令如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mp4decrypt --key 2:cac5936c9fcb86756c0a4f2eeb1b5642 sweet.home.s01e01.mp4 sweet.home.s01e01.d.mp4</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>--key &lt;id&gt;:&lt;key&gt;</code>，的 id 是视频流在 mp4 文件中的 id，可以用 mediainfo 查看。一般不是 1 就是 2。<code>key</code>就是 widevine-l3-decryptor 输出的解密密匙。后面接 <code>&lt;加密视频文件名&gt;.mp4 &lt;解密视频文件名&gt;.mp4</code>。</p>
+<h3 id="音频的获取"><a href="#音频的获取" class="headerlink" title="音频的获取"></a>音频的获取</h3><p>Netflix 提供了 AAC 2.0 / 5.0 和 DDP 2.0 / 5.0 / Atmos(部分) 的音频文件，而且一般还准备了多国语言。对应的 profile 有</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">c.qV = <span class="string">&quot;heaac-2-dash&quot;</span>;</span><br><span class="line">c.I6a = <span class="string">&quot;heaac-5.1-dash&quot;</span>;</span><br><span class="line">c.rV = <span class="string">&quot;heaac-2hq-dash&quot;</span>;</span><br><span class="line">c.WW = <span class="string">&quot;xheaac-dash&quot;</span>;</span><br><span class="line">c.SU = <span class="string">&quot;ddplus-2.0-dash&quot;</span>;</span><br><span class="line">c.i7 = <span class="string">&quot;ddplus-5.1-dash&quot;</span>;</span><br><span class="line">c.TU = <span class="string">&quot;ddplus-atmos-dash&quot;</span>;</span><br><span class="line">c.j8 = <span class="string">&quot;playready-heaac-2-dash&quot;</span>;</span><br><span class="line">c.K6a = <span class="string">&quot;heaac-2-dash-enc&quot;</span>;</span><br><span class="line">c.P4a = <span class="string">&quot;ddplus-2.0-dash-enc&quot;</span>;</span><br><span class="line">c.Q4a = <span class="string">&quot;ddplus-5.1-dash-enc&quot;</span>;</span><br><span class="line">c.J6a = <span class="string">&quot;playready-heaac-2-dash-enc&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>AAC 的音频 chrome 能抓地址且能正常播放， DDP 的音频 chrome 也能抓，但会导致播放报错。一般我们是抓 DDP 5.1 640 kb/s 码率的那一条音频。如果你只想在移动设备上播放，可以只抓 AAC 2.0 <code>heaac-2hq-dash</code>。</p>
+<p>下载方式和视频流一样，文件名直接改 .mp4 后缀即可。</p>
+<h4 id="Atmos-音频的探测与获取-（need-help）"><a href="#Atmos-音频的探测与获取-（need-help）" class="headerlink" title="Atmos 音频的探测与获取 （need help）"></a>Atmos 音频的探测与获取 （need help）</h4><p>我现在有两个问题不能很好解决</p>
+<ul>
+<li>部分视频有 Atmos 音频，如何探测？ 我知道可以用Windows store 的 app 看，我希望直接在 chrome 上就能探测。</li>
+<li>DDP5.1 和 DDP Atmos 的抓取我是通过改 profile 实现抓取的，但是在抓取 DDP 音频之后 chrome 会报错，影响播放，每次该来该去很麻烦，有没有一劳永逸的解决方案？</li>
+</ul>
+<h3 id="字幕的获取"><a href="#字幕的获取" class="headerlink" title="字幕的获取"></a>字幕的获取</h3><p>字幕直接用 Netflix - subtitle downloader 能很方便的抓取 webvtt 字幕，然后用 subtitle edit 转成 srt 字幕即可。</p>
+<p>另外你如果希望抓图片字幕，在 manifest 里面找 <code>nflx-cmisc</code> 格式的下载，文件名改 .zip，然后想办法转蓝光格式的图片字幕或者 vobsub，本人暂未研究。</p>
+<h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>用 mkvtoolnix，一般是封装最高码率的 1080p 视频，640 k 码率的 DDP 5.1 （有 Atmos 封 Atmos），全部的 srt 字幕。具体规范以后讨论。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web-dl/" rel="tag"># web-dl</a>
+              <a href="/tags/netflix/" rel="tag"># netflix</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/23/netflix-webrip-note/" rel="prev" title="Netflix 视频抓取">
+                  <i class="fa fa-chevron-left"></i> Netflix 视频抓取
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">enigmaz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

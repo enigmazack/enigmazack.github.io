@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;enigmaz.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="一直以来我希望在我的 Windows 笔记本上运行 Unix-like 的 shell 以配合我的 Archlinux 工作台式机。之前的解决方案是 Cygwin &#x2F; MSYS2 &#x2F; Git Bash 这些基于 MinTTY 的终端， 感觉都不太趁手， 最大的问题是运行起来很卡，命令补全功能的很弱，很难获得我在原生 Linux 系统上的体验。最近注意到 WSL (Windows Subsystem">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSL体验笔记">
+<meta property="og:url" content="https://enigmaz.gitee.io/2020/11/19/wsl-arch/index.html">
+<meta property="og:site_name" content="EniGmAz">
+<meta property="og:description" content="一直以来我希望在我的 Windows 笔记本上运行 Unix-like 的 shell 以配合我的 Archlinux 工作台式机。之前的解决方案是 Cygwin &#x2F; MSYS2 &#x2F; Git Bash 这些基于 MinTTY 的终端， 感觉都不太趁手， 最大的问题是运行起来很卡，命令补全功能的很弱，很难获得我在原生 Linux 系统上的体验。最近注意到 WSL (Windows Subsystem">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-19T02:34:38.000Z">
+<meta property="article:modified_time" content="2021-06-03T12:16:34.490Z">
+<meta property="article:author" content="enigmaz">
+<meta property="article:tag" content="wsl">
+<meta property="article:tag" content="archlinux">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://enigmaz.gitee.io/2020/11/19/wsl-arch/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;enigmaz.gitee.io&#x2F;2020&#x2F;11&#x2F;19&#x2F;wsl-arch&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;11&#x2F;19&#x2F;wsl-arch&#x2F;&quot;,&quot;title&quot;:&quot;WSL体验笔记&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>WSL体验笔记 | EniGmAz</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">EniGmAz</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WSL-2"><span class="nav-number">1.</span> <span class="nav-text">WSL 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArchWSL"><span class="nav-number">2.</span> <span class="nav-text">ArchWSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-Terminal"><span class="nav-number">3.</span> <span class="nav-text">Windows Terminal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VS-Code"><span class="nav-number">4.</span> <span class="nav-text">VS Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">注意问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C"><span class="nav-number">5.1.</span> <span class="nav-text">网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VS-Code-%E4%BB%A3%E7%A0%81%E7%9B%AE%E5%BD%95"><span class="nav-number">5.2.</span> <span class="nav-text">VS Code 代码目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ohmyzsh-%E5%AD%97%E4%BD%93"><span class="nav-number">5.3.</span> <span class="nav-text">ohmyzsh 字体</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">enigmaz</p>
+  <div class="site-description" itemprop="description">随便写写</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://enigmaz.gitee.io/2020/11/19/wsl-arch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="enigmaz">
+      <meta itemprop="description" content="随便写写">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EniGmAz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          WSL体验笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-19 10:34:38" itemprop="dateCreated datePublished" datetime="2020-11-19T10:34:38+08:00">2020-11-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-03 20:16:34" itemprop="dateModified" datetime="2021-06-03T20:16:34+08:00">2021-06-03</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">软件</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>一直以来我希望在我的 Windows 笔记本上运行 Unix-like 的 shell 以配合我的 Archlinux 工作台式机。之前的解决方案是 Cygwin / MSYS2 / Git Bash 这些基于 MinTTY 的终端， 感觉都不太趁手， 最大的问题是运行起来很卡，命令补全功能的很弱，很难获得我在原生 Linux 系统上的体验。最近注意到 WSL (Windows Subsystem for Linux)，安装体验了一下，结果非常令人满意，完全覆盖了我的需求，甚至还有意外收获。</p>
+<span id="more"></span>
+
+<h2 id="WSL-2"><a href="#WSL-2" class="headerlink" title="WSL 2"></a>WSL 2</h2><p>安装步骤参考<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10">微软官方文档</a></p>
+<p>基本上一步步下来没遇到什么问题，不同之处我选择发行版本是 Archlinux，这个在微软的官方商店是没有上架的，须自行去 GitHub 下载。</p>
+<p>建议一步到位升级到 WSL 2，WSL 1 有不少功能限制。</p>
+<h2 id="ArchWSL"><a href="#ArchWSL" class="headerlink" title="ArchWSL"></a>ArchWSL</h2><p>ArchWSL <a target="_blank" rel="noopener" href="https://github.com/yuk7/ArchWSL">项目地址</a> <a target="_blank" rel="noopener" href="https://wsldl-pg.github.io/ArchW-docs/How-to-Setup/">文档</a>。</p>
+<p>用zip文件解压的方式安装，解压后得到一个<code>Arch.exe</code>，在 PowerShell 里面运行这个文件即可。注意要解压到有读写权限的文件夹中。之后就是一个新装的 ArchLinux 了，做该做的准备工作就行（添加用户，设置 sudo 权限，换 zsh 等等）</p>
+<p>ArchWSL 是不支持原生的 systemd，若要体验，需安装替代程序，以运行 systemd 的脚本。暂未安装。</p>
+<h2 id="Windows-Terminal"><a href="#Windows-Terminal" class="headerlink" title="Windows Terminal"></a>Windows Terminal</h2><p>直接从微软官方商店安装，使用参考<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/terminal/">微软官方文档</a>。</p>
+<p>安装好后，默认就给我们配置好了 WSL 的启动选项，还可以通过配置文件修改配色和开始路径，例如我的</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;guid&quot;</span>: <span class="string">&quot;&#123;a5a97cb8-8961-5535-816d-772efe0c6a3f&#125;&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;colorScheme&quot;</span> : <span class="string">&quot;One Half Dark&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;startingDirectory&quot;</span>: <span class="string">&quot;//wsl$/Arch/home/enigmaz/&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;hidden&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Arch&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;source&quot;</span>: <span class="string">&quot;Windows.Terminal.Wsl&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h2><p>VS Code 配合 WSL 使用是我本次体验获得意外之喜。</p>
+<p>安装好 WSL 后我启动 VS Code，它自动检测到了我安装了 WSL 并询问我是否安装相关插件 <code>Remote - WSL</code>。开始我不知道这个插件是干啥用的，就去百度，找到知乎一篇文章 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33226830">在 WSL 下启动 VSCode</a> 。这篇文章写得比较早，说的实际上是在 WSL 中启动 VS Code，关于 <code>Remote - WSL</code> 插件的作用并没有介绍。</p>
+<p>实际上这个插件更好用，它不需要在 WSL 端安装 VS Code 以及支持它运行所需的 X server 等等。我们只需要在 Windows 端的 VS Code 安装好插件，然后进到 WSL 的 shell 中，进入指定目录，输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code .</span><br></pre></td></tr></table></figure>
+
+<p>第一次它会下载一个适用于 WSL 的 VS Code Server 端程序并安装，整个过程是自动的，然后启动 Windows 端的 VS Code，通过网络通讯，在 Windows 端的 VS Code里面编辑 WSL 端储存的代码，并且用 WSL 端工具链编译、调试代码。启动的终端也是直接打开的 WSL 的 shell 并且进入到代码目录。</p>
+<p>有了这强大功能，以后在 Windows 上做一些开发就顺手多了，我可以把 Windows 上的 node / python / git 什么的都卸载了，直接用 WSL 里面的开发工具了，完全与我的工作电脑同步了。</p>
+<h2 id="注意问题"><a href="#注意问题" class="headerlink" title="注意问题"></a>注意问题</h2><h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p>WSL 目前还不支持 ipv6。</p>
+<p>v2ray 代理的使用：可以在 WSL 里面单独实现一个 v2ray 实例使用，也可以将 Widnows 端的 v2ray 的代理地址绑定到 <code>0.0.0.0</code> 对局域网内机器可见，然后 WSL 设置代理地址为 Windows 端在局域网的 ip。如果 v2ray 端口不想暴露到局域网，需要获取 windows 在 WSL 的 ip</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PROXY_PORT=1081</span><br><span class="line"><span class="built_in">export</span> WINDOWS_NAMESERVER=`cat /etc/resolv.conf|grep nameserver|awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>`</span><br><span class="line"><span class="built_in">export</span> WIN_PROXY=http://<span class="variable">$WINDOWS_NAMESERVER</span>:<span class="variable">$PROXY_PORT</span></span><br><span class="line"><span class="built_in">export</span> HTTP_PROXY=<span class="variable">$WIN_PROXY</span></span><br><span class="line"><span class="built_in">export</span> HTTPS_PROXY=<span class="variable">$WIN_PROXY</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="VS-Code-代码目录"><a href="#VS-Code-代码目录" class="headerlink" title="VS Code 代码目录"></a>VS Code 代码目录</h3><p>利用 Windows 端远程连接开发的时候，代码要放在 WSL 里面，不要用 WSL 挂载的 Windows 目录，不然 git 状态会有 bug。</p>
+<h3 id="ohmyzsh-字体"><a href="#ohmyzsh-字体" class="headerlink" title="ohmyzsh 字体"></a>ohmyzsh 字体</h3><p>如果用 ohmyzsh，需要在 windows 上安装 (powerline)[<a target="_blank" rel="noopener" href="https://github.com/powerline/fonts]">https://github.com/powerline/fonts]</a> 字体。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/wsl/" rel="tag"># wsl</a>
+              <a href="/tags/archlinux/" rel="tag"># archlinux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/04/14/youku-web-dl/" rel="prev" title="优酷视频下载">
+                  <i class="fa fa-chevron-left"></i> 优酷视频下载
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/12/23/netflix-webrip-note/" rel="next" title="Netflix 视频抓取">
+                  Netflix 视频抓取 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">enigmaz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

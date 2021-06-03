@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;enigmaz.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="Widevine L3 刚破解的时候就有 Netflix 的 web-dl 流出了，不过那个时候这还是一项很“高端”的技术，这个核心技术只掌握在少数破解小组手中。随着 Widevine 的神秘面纱被一层层揭开，现在网上已经能找到可用的 chrome 插件获取当前网页上使用 Widevine 加密的视频文件的密匙了，如果我们获取了完整的加密视频文件和密匙，那么就可以用 ffmpeg 等工具去 DRM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netflix 视频抓取">
+<meta property="og:url" content="https://enigmaz.gitee.io/2020/12/23/netflix-webrip-note/index.html">
+<meta property="og:site_name" content="EniGmAz">
+<meta property="og:description" content="Widevine L3 刚破解的时候就有 Netflix 的 web-dl 流出了，不过那个时候这还是一项很“高端”的技术，这个核心技术只掌握在少数破解小组手中。随着 Widevine 的神秘面纱被一层层揭开，现在网上已经能找到可用的 chrome 插件获取当前网页上使用 Widevine 加密的视频文件的密匙了，如果我们获取了完整的加密视频文件和密匙，那么就可以用 ffmpeg 等工具去 DRM">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-23T09:26:00.000Z">
+<meta property="article:modified_time" content="2021-06-02T16:02:13.010Z">
+<meta property="article:author" content="enigmaz">
+<meta property="article:tag" content="web-dl">
+<meta property="article:tag" content="netflix">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://enigmaz.gitee.io/2020/12/23/netflix-webrip-note/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;enigmaz.gitee.io&#x2F;2020&#x2F;12&#x2F;23&#x2F;netflix-webrip-note&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;12&#x2F;23&#x2F;netflix-webrip-note&#x2F;&quot;,&quot;title&quot;:&quot;Netflix 视频抓取&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Netflix 视频抓取 | EniGmAz</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">EniGmAz</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6-widevine-l3-decryptor"><span class="nav-number">1.</span> <span class="nav-text">插件 widevine-l3-decryptor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90-Netflix-%E8%A7%86%E9%A2%91%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80"><span class="nav-number">2.</span> <span class="nav-text">解析 Netflix 视频下载地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E5%93%81%E8%B4%A8%E9%9F%B3%E8%A7%86%E9%A2%91%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="nav-number">3.</span> <span class="nav-text">高品质音视频的获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MKV-%E5%B0%81%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">MKV 封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">enigmaz</p>
+  <div class="site-description" itemprop="description">随便写写</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://enigmaz.gitee.io/2020/12/23/netflix-webrip-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="enigmaz">
+      <meta itemprop="description" content="随便写写">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EniGmAz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Netflix 视频抓取
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-23 17:26:00" itemprop="dateCreated datePublished" datetime="2020-12-23T17:26:00+08:00">2020-12-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-03 00:02:13" itemprop="dateModified" datetime="2021-06-03T00:02:13+08:00">2021-06-03</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%A7%86%E9%A2%91%E6%8A%93%E5%8F%96/" itemprop="url" rel="index"><span itemprop="name">视频抓取</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Widevine L3 刚破解的时候就有 Netflix 的 web-dl 流出了，不过那个时候这还是一项很“高端”的技术，这个核心技术只掌握在少数破解小组手中。随着 Widevine 的神秘面纱被一层层揭开，现在网上已经能找到可用的 chrome 插件获取当前网页上使用 Widevine 加密的视频文件的密匙了，如果我们获取了完整的加密视频文件和密匙，那么就可以用 ffmpeg 等工具去 DRM 保护了。</p>
+<span id="more"></span>
+
+<h2 id="插件-widevine-l3-decryptor"><a href="#插件-widevine-l3-decryptor" class="headerlink" title="插件 widevine-l3-decryptor"></a>插件 widevine-l3-decryptor</h2><p>这是一个发布在 github 上破解 chrome Widevine L3 的插件，原版的仓库由于收到了 google 的投诉，只剩下个说明文件了。不过好在有很多 forks 还保留了完整的代码。我已经下到本地保存了一分。这个插件直接 hook 了浏览器的 EME （Encrypted Media Extensions），只要浏览器在播放使用 Widevine 加密的视频，插件就会在控制台输出如下信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WidevineDecryptor: Found key: 709487bfa80678a4fd32fd26cbf42b60 (KID=00000000056167750000000000000000)</span><br></pre></td></tr></table></figure>
+
+<p>简单说一下破解 Widevine L3 的原理。Widevine 加密本质上是 AES 加密，理论上黑盒 AES 加密是十分安全的，以目前计算机的算力是无法破解的。但是 Widevine L3 并不是黑盒 AES，而是完全的白盒 AES。所谓白盒，就是破解者能调用 AES 加（解）密程序，这样可以通过一个差分分析方法破解出 AES 密匙。Widevine 其实是分三个等级的，L1 和 L2 要求硬件支持，一般是 cpu 里面有个单独的安全模块用来处理AES 加（解）密，这个过程对破解者是不可见的，用上面的方法也没法破解的，只有 L3 是白盒 AES。这个插件是直接把 chrome 在 windows 设备上用于 Widevine 的密匙破解出来了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The public 2048-bit RSA key Widevine uses for Chrome devices in L3, on Windows</span></span><br><span class="line">WidevineCrypto.chromeRSAPublicKey = </span><br><span class="line"><span class="string">`-----BEGIN PUBLIC KEY-----</span></span><br><span class="line"><span class="string">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtdHcRBiDWWxdJyKDLTPO9OTapumVnW+9g6k3RSflM0CESFEufZUJGC73UKe9e+u789HVZT04pB5or3WB0XOx</span></span><br><span class="line"><span class="string">aOibJklLBkd7Yfn1OndVrenMKTE1F4/6jg5rmwyv4qFQ1u8M/ThZUrAgb8pTmKfb9vrv1V8AApwVzcQg3s48eESnKjBU99Vk8alPTjPSfOgoTDluGxQONWiwCaMwftNs</span></span><br><span class="line"><span class="string">YrOzlde+V3UOb5FVzPcrOmaERfyujV3h4sHGRbTCsqYVwMalO7hmNmtemwt0xBuf5Juia7t1scuJypQ8lI1iEsB+JZVo3Uovfa9nNX0gl5TAq1tAh6M55/ttpWAirWHv</span></span><br><span class="line"><span class="string">CQIDAQAB</span></span><br><span class="line"><span class="string">-----END PUBLIC KEY-----`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The private 2048-bit RSA key Widevine uses for authenticating Chrome devices in L3, on Windows</span></span><br><span class="line"><span class="comment">// Extracted by applying some mathematical tricks to Arxan&#x27;s white-box algorithm</span></span><br><span class="line">WidevineCrypto.chromeRSAPrivateKey = </span><br><span class="line"><span class="string">`-----BEGIN PRIVATE KEY-----</span></span><br><span class="line"><span class="string">MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC10dxEGINZbF0nIoMtM8705Nqm6ZWdb72DqTdFJ+UzQIRIUS59lQkYLvdQp71767vz0dVlPTikHmiv</span></span><br><span class="line"><span class="string">dYHRc7Fo6JsmSUsGR3th+fU6d1Wt6cwpMTUXj/qODmubDK/ioVDW7wz9OFlSsCBvylOYp9v2+u/VXwACnBXNxCDezjx4RKcqMFT31WTxqU9OM9J86ChMOW4bFA41aLAJ</span></span><br><span class="line"><span class="string">ozB+02xis7OV175XdQ5vkVXM9ys6ZoRF/K6NXeHiwcZFtMKyphXAxqU7uGY2a16bC3TEG5/km6Jru3Wxy4nKlDyUjWISwH4llWjdSi99r2c1fSCXlMCrW0CHoznn+22l</span></span><br><span class="line"><span class="string">YCKtYe8JAgMBAAECggEAGOPDJvFCHd43PFG9qlTyylR/2CSWzigLRfhGsClfd24oDaxLVHav+YcIZRqpVkr1flGlyEeittjQ1OAdptoTGbzp7EpRQmlLqyRoHRpT+MxO</span></span><br><span class="line"><span class="string">Hf91+KVFk+fGdEG+3CPgKKQt34Y0uByTPCpy2i10b7F3Xnq0Sicq1vG33DhYT9A/DRIjYr8Y0AVovq0VDjWqA1FW5OO9p7vky6e+PDMjSHucQ+uaLzVZSc7vWOh0tH5M</span></span><br><span class="line"><span class="string">0GVk17YpBiB/iTpw4zBUIcaneQX3eaIfSCDHK0SCD6IRF7kl+uORzvWqiWlGzpdG2B96uyP4hd3WoPcZntM79PKm4dAotdgmalbueFJfpwKBgQDUy0EyA9Fq0aPF4LID</span></span><br><span class="line"><span class="string">HqDPduIm4hEAZf6sQLd8Fe6ywM4p9KOEVx7YPaFxQHFSgIiWXswildPJl8Cg5cM2EyMU1tdn5xaR4VIDk8e2JEDfhPtaWskpJp2rU2wHvAXOeAES7UFMrkhKVqqVOdbo</span></span><br><span class="line"><span class="string">IhlLdcYp5KxiJ3mwINSSO94ShwKBgQDavJvF+c8AINfCaMocUX0knXz+xCwdP430GoPQCHa1rUj5bZ3qn3XMwSWa57J4x3pVhYmgJv4jpEK+LBULFezNLV5N4C7vH63a</span></span><br><span class="line"><span class="string">Zo4OF7IUedFBS5B508yAq7RiPhN2VOC8LRdDh5oqnFufjafF82y9d+/czCrVIG43D+KO2j4F7wKBgDg/HZWF0tYEYeDNGuCeOO19xBt5B/tt+lo3pQhkl7qiIhyO8KXr</span></span><br><span class="line"><span class="string">jVilOcZAvXOMTA5LMnQ13ExeE2m0MdxaRJyeiUOKnrmisFYHuvNXM9qhQPtKIgABmA2QOG728SX5LHd/RRJqwur7a42UQ00Krlr235F1Q2eSfaTjmKyqrHGDAoGAOTrd</span></span><br><span class="line"><span class="string">2ueoZFUzfnciYlRj1L+r45B6JlDpmDOTx0tfm9sx26j1h1yfWqoyZ5w1kupGNLgSsSdimPqyR8WK3/KlmW1EXkXIoeH8/8aTZlaGzlqtCFN4ApgKyqOiN44cU3qTrkhx</span></span><br><span class="line"><span class="string">7MY+7OUqB83tVpqBGfWWeYOltUud6qQqV8v8LFsCgYEAnOq+Ls83CaHIWCjpVfiWC+R7mqW+ql1OGtoaajtA4AzhXzX8HIXpYjupPBlXlQ1FFfPem6jwa1UTZf8CpIb8</span></span><br><span class="line"><span class="string">pPULAN9ZRrxG8V+bvkZWVREPTZj7xPCwPaZHNKoAmi3Dbv7S5SEYDbBX/NyPCLE4sj/AgTPbUsUtaiw5TvrPsFE=</span></span><br><span class="line"><span class="string">-----END PRIVATE KEY-----`</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Widevine L3 的破解是 Netflix web-dl 的基石，理论上所有使用 Widevine DRM 技术的视频网站都可以用它来获取密匙，剩下的工作就是解析出加密视频的下载地址。</p>
+<h2 id="解析-Netflix-视频下载地址"><a href="#解析-Netflix-视频下载地址" class="headerlink" title="解析 Netflix 视频下载地址"></a>解析 Netflix 视频下载地址</h2><p>Netflix 的网页 App 和一般的视频网站还不一样，它使用的一个 MSL (Message Security Layer) 控制客户端与服务器的通讯。如果像往常一样用 http 抓包工具来分析 Netflix 的工作流程的话，你会发现几乎每个 response 内容都是一串 BASE64 编码的字符串，完全没有 JSON 这样可读的内容。好在 Netflix 的 MSL 也被大家研究透了（更何况它还是 Netflix 在 github 上的一个开源项目）， 最简单的一个办法，是我在一个下载 Netflix 字幕的油猴插件上看到的，直接 hook javascript 内置的 JSON 的两个方法，代码片段如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> injection = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> WEBVTT = <span class="string">&#x27;webvtt-lssdh-ios8&#x27;</span>;</span><br><span class="line">  <span class="keyword">const</span> MANIFEST_URL = <span class="string">&quot;manifest&quot;</span>;</span><br><span class="line">  <span class="keyword">const</span> forceSubs = <span class="built_in">localStorage</span>.getItem(<span class="string">&#x27;NSD_force-all-lang&#x27;</span>) !== <span class="string">&#x27;false&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// hijack JSON.parse and JSON.stringify functions</span></span><br><span class="line">  (<span class="function">(<span class="params">parse, stringify</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">JSON</span>.parse = <span class="function"><span class="keyword">function</span> (<span class="params">text</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">const</span> data = parse(text);</span><br><span class="line">      <span class="keyword">if</span> (data &amp;&amp; data.result &amp;&amp; data.result.timedtexttracks &amp;&amp; data.result.movieId) &#123;</span><br><span class="line">        <span class="built_in">window</span>.dispatchEvent(<span class="keyword">new</span> CustomEvent(<span class="string">&#x27;netflix_sub_downloader_data&#x27;</span>, &#123;<span class="attr">detail</span>: data.result&#125;));</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;manifest:&#x27;</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(data)</span><br><span class="line">        <span class="built_in">console</span>.log(stringify(data))</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> data;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">JSON</span>.stringify = <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (data &amp;&amp; <span class="keyword">typeof</span> data.url === <span class="string">&#x27;string&#x27;</span> &amp;&amp; data.url.indexOf(MANIFEST_URL) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> v <span class="keyword">of</span> <span class="built_in">Object</span>.values(data)) &#123;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (v.profiles)</span><br><span class="line">              v.profiles.unshift(WEBVTT);</span><br><span class="line">            <span class="keyword">if</span> (v.showAllSubDubTracks != <span class="literal">null</span> &amp;&amp; forceSubs)</span><br><span class="line">              v.showAllSubDubTracks = <span class="literal">true</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">            <span class="keyword">if</span> (e <span class="keyword">instanceof</span> <span class="built_in">TypeError</span>)</span><br><span class="line">              <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">              <span class="keyword">throw</span> e;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;manifest_req:&#x27;</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(data)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(data &amp;&amp; <span class="keyword">typeof</span> data.movieId === <span class="string">&#x27;number&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">let</span> videoId = data.params.sessionParams.uiplaycontext.video_id;</span><br><span class="line">          <span class="keyword">if</span>(<span class="keyword">typeof</span> videoId === <span class="string">&#x27;number&#x27;</span> &amp;&amp; videoId !== data.movieId)</span><br><span class="line">            <span class="built_in">window</span>.dispatchEvent(<span class="keyword">new</span> CustomEvent(<span class="string">&#x27;netflix_sub_downloader_data&#x27;</span>, &#123;<span class="attr">detail</span>: &#123;<span class="attr">id_override</span>: [videoId, data.movieId]&#125;&#125;));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span>(ignore) &#123;&#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> stringify(data);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;)(<span class="built_in">JSON</span>.parse, <span class="built_in">JSON</span>.stringify);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>任你 MSL 多复杂，它在发送数据之前会调用 JSON.stringify，接收数据之后会调用 JSON.parse，我们直接把这两个函数给替换了，让它在接收到关键信息之后向 console 输出就行了。在这里关键信息就是 Netflix 播放器用来播放视频的 manifest， 这个 manifest 包含了所有我们需要的视频、音频、字幕信息（下载地址）。在这里就不细说 manifest 内容的结构了，都是人类可读的信息，找出视频下载地址没什么难度。另外说明下，Netflix 只对视频加密了，音频和字幕都是直接可用的。</p>
+<h2 id="高品质音视频的获取"><a href="#高品质音视频的获取" class="headerlink" title="高品质音视频的获取"></a>高品质音视频的获取</h2><p>本来到这里应该是万事大吉了，视频地址也解析出来了，解密密匙也获取了。用 ffmpeg 或者 bento4 这类工具就能去 DRM 了。但是，我要告诉你的是，用 chrome 浏览器看 Netflix 最高只有 720p，AAC 2.0 音质。但实际上我们用点小技巧，也能让 chrome 也获得 1080p 的视频以及高规格的音频。这个插件就是 netflix-1080p，托管在 github 上。原仓库很久不更新了，用不了。但是你多做一些搜索，就会发现能用的。更重要的是这个仓库还提供了手动的 MSL requester，可以发自己构造的请求，然后解析出 manifest。原仓库的虽然不能用，但是给我们提供了一个很好的样板。</p>
+<p>获取高品质的音视频 manifest 的关键在于改写 Netflix 原版的 cadmium player。Netflix 会根据我们所用的平台（在这里是 chrome）生成 MSL request 发送给服务器，然后服务器返回 manifest信息。原版的 player 看见我们用的是 chrome，于是就只请求 720p 视频和 AAC 2.0 音频了，典型的是瞧不起我们 chrome 用户。但实际上 Netflix 准备很多规格的视频 （avc 1080p / hevc 1080p / 部分 hevc 2160p）和音频 （AAC 5.1 / DDP 5.1 / 部分 DDP ATOMS），而其中有一部分是可以通过改写 cadmium player 就能获取的，并且在 chrome 上就能播放。另外一些能获取，但是 chrome 不能播放，但是这不妨碍我们下载这些内容。改写片段（112507行左右）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">viewableId: n,</span><br><span class="line"><span class="comment">// profiles: g,</span></span><br><span class="line"><span class="attr">profiles</span>: [</span><br><span class="line">  <span class="string">&quot;playready-h264mpl30-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;playready-h264mpl31-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;playready-h264mpl40-dash&quot;</span>,</span><br><span class="line">  </span><br><span class="line">  <span class="string">&quot;playready-h264hpl30-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;playready-h264hpl31-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;playready-h264hpl40-dash&quot;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// &quot;vp9-profile0-L21-dash-cenc&quot;,</span></span><br><span class="line">  <span class="comment">// &quot;vp9-profile0-L30-dash-cenc&quot;,</span></span><br><span class="line">  <span class="comment">// &quot;vp9-profile0-L31-dash-cenc&quot;,</span></span><br><span class="line">  <span class="comment">// &quot;vp9-profile0-L40-dash-cenc&quot;,</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// &quot;vp9-profile2-L30-dash-cenc-prk&quot;,</span></span><br><span class="line">  <span class="comment">// &quot;vp9-profile2-L31-dash-cenc-prk&quot;,</span></span><br><span class="line">  <span class="comment">// &quot;vp9-profile2-L40-dash-cenc-prk&quot;,</span></span><br><span class="line">  <span class="comment">// &quot;vp9-profile2-L50-dash-cenc-prk&quot;,</span></span><br><span class="line">  <span class="comment">// &quot;vp9-profile2-L51-dash-cenc-prk&quot;,</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">// &quot;ddplus-5.1hq-dash&quot;,</span></span><br><span class="line">  <span class="comment">// &quot;ddplus-atoms-dash&quot;,</span></span><br><span class="line">  <span class="string">&quot;heaac-2-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;heaac-2hq-dash&quot;</span>,</span><br><span class="line">  <span class="string">&quot;heaac-5.1-dash&quot;</span>,</span><br><span class="line">            </span><br><span class="line">  <span class="string">&quot;simplesdh&quot;</span>,</span><br><span class="line">  <span class="string">&quot;nflx-cmisc&quot;</span>,</span><br><span class="line">  <span class="string">&quot;BIF240&quot;</span>,</span><br><span class="line">  <span class="string">&quot;BIF320&quot;</span></span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<p>目前我测试的结果是 avc 1080p 能获取，且能播放； aac 音频能获取且能播放；DDP 音频能获取但是不能播放。同样字幕的获取也可以通过这种方法，不过前面已经介绍了一个油猴插件，用那个插件更简单（原理是一样的）。</p>
+<h2 id="MKV-封装"><a href="#MKV-封装" class="headerlink" title="MKV 封装"></a>MKV 封装</h2><p>略</p>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><p><a target="_blank" rel="noopener" href="https://www.reddit.com/r/Piracy/comments/jkydbq/widevinel3decryptor_a_chrome_extension_that/gan4t56/?utm_source=share&utm_medium=ios_app&utm_name=iossmf&context=3">r/Piracy 帖子 Widevine-L3-Decryptor - A Chrome Extension That Demonstrates Bypassing Widevine L3 DRM</a><br><a target="_blank" rel="noopener" href="https://github.com/truedread/netflix-1080p">github netflix-1080p 插件1</a><br><a target="_blank" rel="noopener" href="https://github.com/vladikoff/netflix-1080p-firefox">github netflix-1080p 插件2</a><br><a target="_blank" rel="noopener" href="https://github.com/tomer8007/widevine-l3-decryptor">github widevine-l3-decryptor 插件1</a><br><a target="_blank" rel="noopener" href="https://github.com/p00f/widevine-l3-decryptor">github widevine-l3-decryptor 插件2（可用）</a><br><a target="_blank" rel="noopener" href="https://greasyfork.org/zh-TW/scripts/26654-netflix-subtitle-downloader">油猴脚本 netflix-subtitle-downloader</a></p>
+<p>完</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web-dl/" rel="tag"># web-dl</a>
+              <a href="/tags/netflix/" rel="tag"># netflix</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/19/wsl-arch/" rel="prev" title="WSL体验笔记">
+                  <i class="fa fa-chevron-left"></i> WSL体验笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/12/24/netflix-web-dl-details/" rel="next" title="Netflix 视频抓取细节">
+                  Netflix 视频抓取细节 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">enigmaz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
