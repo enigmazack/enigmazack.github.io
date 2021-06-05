@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;enigmaz.gitee.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="记录 tmux 的使用方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tmux 使用指南">
+<meta property="og:url" content="https://enigmaz.gitee.io/2021/06/05/tmux/index.html">
+<meta property="og:site_name" content="EniGmAz">
+<meta property="og:description" content="记录 tmux 的使用方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-05T08:11:19.000Z">
+<meta property="article:modified_time" content="2021-06-05T08:16:00.110Z">
+<meta property="article:author" content="enigmaz">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="tmux">
+<meta property="article:tag" content="terminal">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://enigmaz.gitee.io/2021/06/05/tmux/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;enigmaz.gitee.io&#x2F;2021&#x2F;06&#x2F;05&#x2F;tmux&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;06&#x2F;05&#x2F;tmux&#x2F;&quot;,&quot;title&quot;:&quot;tmux 使用指南&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>tmux 使用指南 | EniGmAz</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">EniGmAz</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">笔记</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">2.</span> <span class="nav-text">常用命令与快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">3.</span> <span class="nav-text">官方文档</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">enigmaz</p>
+  <div class="site-description" itemprop="description">随便写写</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://enigmaz.gitee.io/2021/06/05/tmux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="enigmaz">
+      <meta itemprop="description" content="随便写写">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EniGmAz">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          tmux 使用指南
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-06-05 16:11:19 / 修改时间：16:16:00" itemprop="dateCreated datePublished" datetime="2021-06-05T16:11:19+08:00">2021-06-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>记录 tmux 的使用方法</p>
+<span id="more"></span>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>要用好 tmux，首先要了解三个相关的概念：会话 session、窗口 window、 窗格 pane。</p>
+<p>session 可以理解为保持终端状态数据的后台。tmux 的一个重要应用场景就是我们需要在终端运行一个耗时很长的任务，又不想一直保持终端开着，这个时候 session 就能发挥作用了。我们通过 tmux 命令新建一个 session，在 session 里面运行指定的程序，然后通过 tmux 命令（快捷键）分离 session，让它保持在后台继续运行，并可以放心的关闭 tmux 外层终端。下次打开终端的时候，通过 tmux 命令接入 session，就可以查看程序运行的状态或者结果。</p>
+<p>window 和 pane 则是在屏幕上展示 tmux 内层终端的载体，一个 session 可以绑定一个或多个 window(s)，而一个 window 又可以绑定一个或多个 pane(s)。panes 是用来分割 window 的，这样一个屏幕上就能展示出多个终端，让工作更高效。我们可以通过快捷键在不同的 panes 之间切换，来控制不同的终端。windows 则类似于桌面环境的工作区，通过切换 windows 来让屏幕显示不同工作区的内容。</p>
+<p>总结一下就是，pane 依存于 window，window 依存于 session。每次我们新建一个 session 的时候会自动创建一个 window，每个 window 又至少有一个 pane。我们可以根据需求新建 window 和 pane。当我们关闭一个 session 的时候，所有依附于它的 window 也都关闭。当我们关闭一个 window 时，所有依附于它的 pane 也都关闭。当一个 window 只有最后一个 pane 时，我们关闭 pane 时，这个 window 也会关闭。当一个 session 只有最后一个 window 时，我们关闭 window，这个 session 也会关闭。每个 pane 绑定一个 tmux 内层终端，当我们希望运行在这个终端的程序不被终止时，一定要保证这个 pane 不被关闭。我们还可以通过分离操作退出 tmux 界面而保持 session 在后台运行，这样所有与这个 session 关联的程序也继续保持运行。这段话很啰嗦，但是层次很分明，逻辑很简单。</p>
+<h2 id="常用命令与快捷键"><a href="#常用命令与快捷键" class="headerlink" title="常用命令与快捷键"></a>常用命令与快捷键</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="left">命令</th>
+<th align="center">快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">新建会话</td>
+<td align="left"><code>tmux new -s &lt;session-name&gt;</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">分离会话</td>
+<td align="left"><code>tmux detach</code></td>
+<td align="center">^b + d</td>
+</tr>
+<tr>
+<td align="center">查看会话列表</td>
+<td align="left"><code>tmux ls</code></td>
+<td align="center">^b + s</td>
+</tr>
+<tr>
+<td align="center">接入会话</td>
+<td align="left"><code>tmux attach -t &lt;session-name&gt;</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">杀死会话</td>
+<td align="left"><code>tmux kill-session -t &lt;session-name&gt;</code></td>
+<td align="center">^d</td>
+</tr>
+<tr>
+<td align="center">切换会话</td>
+<td align="left"><code>tmux switch -t &lt;session-name&gt;</code></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">重命名会话</td>
+<td align="left"><code>tmux rename-session -t &lt;session-name&gt; &lt;new-name&gt;</code></td>
+<td align="center">^b + $</td>
+</tr>
+<tr>
+<td align="center">创建窗口</td>
+<td align="left"><code>tmux new-window -n &lt;window-name&gt;</code></td>
+<td align="center">^b + c</td>
+</tr>
+<tr>
+<td align="center">切换窗口</td>
+<td align="left"><code>tmux select-window -t &lt;window-name&gt;</code></td>
+<td align="center">^b + w / n / p</td>
+</tr>
+<tr>
+<td align="center">重命名窗口</td>
+<td align="left"><code>tmux rename-window &lt;window-name&gt;</code></td>
+<td align="center">^b + ,</td>
+</tr>
+<tr>
+<td align="center">关闭窗口</td>
+<td align="left"><code>tmux kill-window -t &lt;window-name&gt;</code></td>
+<td align="center">^b + &amp;</td>
+</tr>
+<tr>
+<td align="center">纵向分割窗口</td>
+<td align="left"><code>tmux split-window</code></td>
+<td align="center">^b + “</td>
+</tr>
+<tr>
+<td align="center">横向分割窗口</td>
+<td align="left"><code>tmux split-window -h</code></td>
+<td align="center">^b + %</td>
+</tr>
+<tr>
+<td align="center">激活不同方位窗格</td>
+<td align="left"><code>tmux select-pane  -U / -D / -L / -R</code></td>
+<td align="center">^b + &lt;arrow key&gt; / ; / o</td>
+</tr>
+<tr>
+<td align="center">最大化/还原窗格</td>
+<td align="left"></td>
+<td align="center">^b + z</td>
+</tr>
+<tr>
+<td align="center">关闭窗格</td>
+<td align="left"></td>
+<td align="center">^b + x</td>
+</tr>
+</tbody></table>
+<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><p>更多详细用法请参考<a target="_blank" rel="noopener" href="https://github.com/tmux/tmux/wiki/Getting-Started">官方文档</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/tmux/" rel="tag"># tmux</a>
+              <a href="/tags/terminal/" rel="tag"># terminal</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/24/netflix-web-dl-details/" rel="prev" title="Netflix 视频抓取细节">
+                  <i class="fa fa-chevron-left"></i> Netflix 视频抓取细节
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">enigmaz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
